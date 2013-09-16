@@ -2,7 +2,7 @@ package chap02;
 
 public class Q4 {
     //Write code to partition a linked list around a value x, such that all nodes less than x
-    //come before alt nodes greater than or equal to x.
+    //come before all nodes greater than or equal to x.
     
     static LinkedListNode partition(LinkedListNode n, int x) {
         LinkedListNode list1Head = null;

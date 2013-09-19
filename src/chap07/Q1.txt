@@ -1,0 +1,22 @@
+/*You have a basketball hoop and someone says that you can play one of two
+games.
+Game 1: You get one shot to make the hoop.
+Game 2: You get three shots and you have to make two of three shots.
+If p is the probability of making a particular shot, for which values of p should
+you pick one game or the other?*/
+
+Game 1: 
+P(game1) = p
+
+Game 2: 
+P(game2)=P(make 1 and 2) + P(make 1 and 3) + P(make 2 and 3) + P(make 1, 2 and 3)
+        =p*p*(1-p) + p*(1-p)*p + (1-p)*p*p + p*p*p
+        =3p^2 - 2p^3
+
+play Game 1 if:
+   P(game1) > P(game2)
+=> p > 3p^2 - 2p^3
+=> p(p-1)(2p-1) > 0 note that 0<=p<=1
+=> p < 1/2
+
+If p = 0 or p = 1/2 or p = 1, then it doesn't matter which game to play.

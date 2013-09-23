@@ -8,6 +8,7 @@ public class Q7 {
     TreeNode findFirstCommonAncestor(TreeNode root, TreeNode n1, TreeNode n2) {
         if (root == null) // trivial
             return null;
+        if (root == n1 || root == n2) return root;
         // case 1: n1, n2 reside in two sides -> just return current node
         if (contains(root.left, n1) != contains(root.left, n2))
         /* XXX: OR alternatively:

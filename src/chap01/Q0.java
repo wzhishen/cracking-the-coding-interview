@@ -1,6 +1,8 @@
 package chap01;
 
 public class Q0 {
+    //determines whether a String is a palindrome
+    
     static boolean isPalindrome(String s) {// better
         if (s == null) return false;
         for (int i = 0; i < s.length() / 2; ++i) {

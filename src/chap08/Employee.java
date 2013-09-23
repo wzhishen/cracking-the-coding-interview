@@ -1,6 +1,6 @@
 package chap08;
 
-public abstract class Employee {
+public abstract class Employee{
     protected String name;
     protected boolean sex;
     protected int phone;

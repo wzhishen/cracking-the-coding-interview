@@ -50,8 +50,8 @@ public class Q10 {
         return maxStack;
     }
     
-    static ArrayList<Box> buildTallestStackDP(ArrayList<Box> boxes, HashMap<Box, ArrayList<Box>> cache) {
-        return buildTallestStackDP(boxes, null, cache);
+    static ArrayList<Box> buildTallestStackDP(ArrayList<Box> boxes) {
+        return buildTallestStackDP(boxes, null, new HashMap<Box, ArrayList<Box>>());
     }
     
     //----------------------------------------
@@ -61,7 +61,7 @@ public class Q10 {
         boxes.add(new Box(10, 12, 8));boxes.add(new Box(6, 2, 5));boxes.add(new Box(3, 8, 5));
         boxes.add(new Box(5, 7, 7));boxes.add(new Box(2, 10, 16));boxes.add(new Box(12, 15, 9));
         System.out.println(buildTallestStack(boxes));
-        System.out.println(buildTallestStackDP(boxes, new HashMap<Box, ArrayList<Box>>()));
+        System.out.println(buildTallestStackDP(boxes));
     }
     
     private static int stackHeight(ArrayList<Box> boxes) {

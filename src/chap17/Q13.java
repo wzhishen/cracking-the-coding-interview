@@ -21,7 +21,7 @@ public class Q13 {
     
     static void buildList(BiNode n) {
         if (head == null || tail == null) {
-            head = n; tail = n;
+            head = tail = n;
             n.node1 = n.node2 = null;
         }
         else {

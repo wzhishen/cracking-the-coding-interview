@@ -10,6 +10,7 @@ public class Q04 {
 //    SOLUTION: We compute P(n-l), clone the results, and then add an to each of these cloned sets.
     
     static ArrayList<ArrayList<Integer>> getSubsets2(List<Integer> set) {
+        if (set == null) return null;
         ArrayList<ArrayList<Integer>> subsets = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < 1<<set.size(); ++i) {
             subsets.add(getIthSubset(i, set));
@@ -28,7 +29,24 @@ public class Q04 {
         return subset;
     }
     
-    static ArrayList<ArrayList<Integer>> getSubsets(int n) {
+    static ArrayList<ArrayList<Integer>> getSubsets(List<Integer> set) {
+        if (set == null) return null;
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        if (set.isEmpty()) {
+            ret.add(new ArrayList<Integer>());
+            return ret;
+        }
+        ArrayList<ArrayList<Integer>> last = getSubsets(set.subList(1, set.size()));
+        ret.addAll(last);
+        for (ArrayList<Integer> subset : last) {
+            ArrayList<Integer> newset = new ArrayList<Integer>(subset);
+            newset.add(set.get(0));
+            ret.add(newset);
+        }
+        return ret;
+    }
+    
+    static ArrayList<ArrayList<Integer>> getSubsetsByNum(int n) {
         if (n < 0) {
             return null;
         }
@@ -38,7 +56,7 @@ public class Q04 {
             return subsets;
         }
         else {
-            ArrayList<ArrayList<Integer>> last = getSubsets(n - 1);
+            ArrayList<ArrayList<Integer>> last = getSubsetsByNum(n - 1);
             ArrayList<ArrayList<Integer>> subsets = new ArrayList<ArrayList<Integer>>(last);
             for (ArrayList<Integer> subset : last) {
                 ArrayList<Integer> newset = new ArrayList<Integer>();
@@ -51,13 +69,13 @@ public class Q04 {
         
     }
     
-    //---------------------------------
+    //---------------------------------------------
     public static void main(String[]args) {
-//        ArrayList<ArrayList<Integer>>res=getSubsets(10);
+        System.out.println(getSubsetsByNum(4));
+        System.out.println();
         Integer[] a = {1,3,5,7};
-        ArrayList<ArrayList<Integer>>res=getSubsets2(Arrays.asList(a));
-        for (ArrayList<Integer>l:res) {
-            System.out.println(l);
-        }
+        System.out.println(getSubsets2(Arrays.asList(a)));
+        System.out.println();
+        System.out.println(getSubsets(Arrays.asList(a)));
     }
 }

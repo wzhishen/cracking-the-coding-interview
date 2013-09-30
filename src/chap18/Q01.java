@@ -15,7 +15,7 @@ public class Q01 {
 //    1. If I add two binary numbers together, but forget to carry, the ith bit in the sum will
 //    be 0 only if a and b have the same ith bit (both 0 or both 1). This is essentially an XOR.
 //    2. If I add two numbers together but only carry, I will have a 1 in the ith bit of the sum
-//    only if bits i - l of a and b are both 1s. This is an AND, shifted.
+//    only if bits i - 1 of a and b are both 1s. This is an AND, shifted.
 //    3. Now, recurse until there's nothing to carry.
     
     int add(int a, int b) {

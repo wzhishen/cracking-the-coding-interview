@@ -25,17 +25,18 @@ public class Q1 {
     
     //without extra space
     void removeDuplicates2(LinkedListNode n) {
-        while (n != null) {
+        LinkedListNode curr = n;
+        while (curr != null) {
             LinkedListNode runner = n;
             while (runner != null) {
-                if (runner.next != null && runner.data == runner.next.data) {
+                if (runner.next != null && runner.next.data == curr.data) {
                     runner.next = runner.next.next;
                 }
-                else { //XXX
+                else {//XXX
                     runner = runner.next;
                 }
             }
-            n = n.next;
+            curr = curr.next;
         }
     }
 }

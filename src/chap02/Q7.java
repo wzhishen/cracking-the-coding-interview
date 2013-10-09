@@ -7,6 +7,7 @@ public class Q7 {
     //like 0 -> 1 -> 2 -> 1 - > 0
     
     static boolean isPalindrome(LinkedListNode head) {
+        if (head == null) return false;
         LinkedListNode fastRunner = head;
         LinkedListNode slowRunner = head;
         Stack<Integer> vals = new Stack<Integer>();

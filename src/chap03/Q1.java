@@ -11,19 +11,19 @@ public class Q1 {
         if (isFull(stackNum))
             throw new IllegalArgumentException("Stack is full!");
         ++stackPointer[stackNum];
-        buffer[getAbsIndex(stackNum, stackPointer[stackNum])] = x;
+        buffer[getAbsIndex(stackNum)] = x;
     }
     
     int pop(int stackNum) {
-        if (isEmpty(stackNum))
-            throw new IllegalArgumentException("Stack is empty!");
         int ret = peek(stackNum);
         --stackPointer[stackNum];
         return ret;
     }
     
     int peek(int stackNum) {
-        return buffer[getAbsIndex(stackNum, stackPointer[stackNum])];
+        if (isEmpty(stackNum))
+            throw new IllegalArgumentException("Stack is empty!");
+        return buffer[getAbsIndex(stackNum)];
     }
     
     boolean isEmpty(int stackNum) {
@@ -31,11 +31,11 @@ public class Q1 {
     }
     
     boolean isFull(int stackNum) {
-        return stackPointer[stackNum] >= STACK_SIZE - 1;
+        return stackPointer[stackNum] == STACK_SIZE - 1;
     }
     
-    private int getAbsIndex(int stackNum, int i) {
-        return stackNum * STACK_SIZE + i;
+    private int getAbsIndex(int stackNum) {
+        return stackNum * STACK_SIZE + stackPointer[stackNum];
     }
 
 }

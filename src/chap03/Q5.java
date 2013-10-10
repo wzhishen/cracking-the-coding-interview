@@ -13,27 +13,26 @@ public class Q5 {
     }
     
     int dequeue() {
-        if (headStack.isEmpty())
-            while (!tailStack.isEmpty()) {
-                headStack.push(tailStack.pop());
-            }
-        if (headStack.isEmpty())
-            throw new IllegalStateException("The queue is empty!");
+        refactor();
         return headStack.pop();
     }
     
     int peek() {
-        if (headStack.isEmpty())
-            while (!tailStack.isEmpty()) {
-                headStack.push(tailStack.pop());
-            }
-        if (headStack.isEmpty())
-            throw new IllegalStateException("The queue is empty!");
+        refactor();
         return headStack.peek();
     }
     
     int size() {
         return headStack.size() + tailStack.size();
+    }
+    
+    private void refactor() {
+        if (headStack.isEmpty())
+            while (!tailStack.isEmpty()) {
+                headStack.push(tailStack.pop());
+            }
+        if (headStack.isEmpty())
+            throw new IllegalStateException("The queue is empty!");
     }
     
     //-----------------------------------------------------

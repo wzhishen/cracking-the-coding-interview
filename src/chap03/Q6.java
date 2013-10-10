@@ -8,6 +8,7 @@ public class Q6 {
     //elements into any other data structure (such as an array). The stack supports the
     //following operations: push, pop, peek, and isEmpty.
     
+    // This algorithm is 0(N2) time and 0(N) space.
     Stack<Integer> sortStack(Stack<Integer> s) {
         Stack<Integer> ret = new Stack<Integer>();
         while (!s.isEmpty()) {

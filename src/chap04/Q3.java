@@ -5,8 +5,9 @@ public class Q3 {
     //to create a binary search tree with minimal height.
     
     private TreeNode createMinBST(int[] a, int start, int end) {
+        if (a == null) return null;
         if (end < start) return null;
-        int mid = (start + end) / 2;
+        int mid = start + (end - start) / 2;
         TreeNode n = new TreeNode(a[mid]);
         n.left = createMinBST(a, start, mid - 1);
         n.right = createMinBST(a, mid + 1, end);

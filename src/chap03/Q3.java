@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public class Q3 /* class SetOfStacks */ {
-    //Imagine a (literal) stack of plates. If the stack gets too high, it migh t topple. Therefore,
+    //Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore,
     //in real life, we would likely start a new stack when the previous stack exceeds some
     //threshold. Implement a data structure SetOfStacks that mimics this. SetOf-
     //Stacks should be composed of several stacks and should create a new stack once
@@ -37,8 +37,8 @@ public class Q3 /* class SetOfStacks */ {
     int popAt(int index) {
         if (stacks.isEmpty())
             throw new IllegalStateException("Stacks are empty!");
-        if (index >= stacks.size())
-            throw new IllegalArgumentException("No such index!");
+        if (index < 0 || index >= stacks.size())
+            throw new IllegalArgumentException("Illegal index!");
         
         int ret = stacks.get(index).pop();
         for (int i = index + 1; i < stacks.size(); ++i) {
@@ -46,7 +46,7 @@ public class Q3 /* class SetOfStacks */ {
         }
         // XXX: after rolling over, last stack may be empty, so delete it
         if (stacks.getLast().isEmpty())
-            stacks.remove(stacks.getLast());
+            stacks.removeLast();
         
         return ret;
     }

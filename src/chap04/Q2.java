@@ -21,6 +21,7 @@ public class Q2 {
     }
     
     static boolean DFSIterative(Node n1, Node n2) {
+        if (n1 == n2) return true;
         Stack<Node> s = new Stack<Node>();
         n1.isVisited = true;
         s.push(n1);
@@ -38,6 +39,7 @@ public class Q2 {
     }
     
     static boolean BFSIterative(Node n1, Node n2) {
+        if (n1 == n2) return true;
         LinkedList<Node> q = new LinkedList<Node>();
         n1.isVisited = true;
         q.add(n1);

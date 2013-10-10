@@ -34,10 +34,10 @@ public class Q4 /* class Tower */ {
     }
     
     static void moveDisks(int n, Q4 src, Q4 des, Q4 buf) {
-        if (n <= 0) return;
+        if (n <= 0) return;//XXX
         // Step #1
         moveDisks(n - 1, src, buf, des);
-        // Step #2
+        // Step #2 XXX
         src.moveTopTo(des);
         // Step #3
         moveDisks(n - 1, buf, des, src);

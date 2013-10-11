@@ -16,8 +16,8 @@ public class Q1 {
         int left = allOnes << (j + 1);
         int right = (1 << i) - 1;
         int mask = left | right;
-        // my mask:
-        // int mask = ~((1 << (j+1)) - (1 << i));
+        
+        // OR: int mask = ~((1 << (j+1)) - (1 << i));
         
         // clear bit & set bit
         return (n & mask) | (m << i);

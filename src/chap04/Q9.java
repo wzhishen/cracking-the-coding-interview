@@ -1,7 +1,7 @@
 package chap04;
 
 public class Q9 {
-    //You are given a binary tree in which each node contains a value. Design an algorithm
+    static //You are given a binary tree in which each node contains a value. Design an algorithm
     //to print all paths which sum to a given value. The path does not need to
     //start or end at the root or a leaf.
     
@@ -9,7 +9,7 @@ public class Q9 {
         findSum(root, sum, new int[getHeight(root)], 0);
     }
     
-    private void findSum(TreeNode n, int sum, int[] path, int level) {
+    private static void findSum(TreeNode n, int sum, int[] path, int level) {
         if (n == null) return;
         
         path[level] = n.value;
@@ -24,15 +24,24 @@ public class Q9 {
         findSum(n.right, sum, path, level + 1);
     }
     
-    private int getHeight(TreeNode n) {
+    private static int getHeight(TreeNode n) {
         if (n == null) return 0;
         return Math.max(getHeight(n.left), getHeight(n.right)) + 1;
     }
     
-    private void print(int[] path, int start, int end) {
+    private static void print(int[] path, int start, int end) {
         for (int i = start; i <= end; ++i) {
             System.out.print(path[i] + " ");
         }
         System.out.println();
+    }
+    
+    //------------------------------
+    public static void main(String[]args) {
+        TreeNode r = new TreeNode(1);
+        TreeNode n1 = new TreeNode(3); n1.right=new TreeNode(0);
+        TreeNode n2 = new TreeNode(2);TreeNode n3=new TreeNode(1);n3.left=new TreeNode(-1);
+        n2.left=n3;r.left=n2;r.right=n1;
+        findSum(r, 3);
     }
 }

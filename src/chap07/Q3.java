@@ -19,6 +19,10 @@ public class Q3 /*class Line*/ {
         //Understand limitations of floating point representations. Never check for equality
         //with ==. Instead, check if the difference is less than an epsilon value.
         return Math.abs(slope - line.slope) > precision ||
-                Math.abs(yintercept - line.yintercept) > precision;
+               Math.abs(yintercept - line.yintercept) < precision;
+        /* equals to
+               Math.abs(slope - line.slope) > precision ||
+               (Math.abs(slope - line.slope) < precision &&
+               Math.abs(yintercept - line.yintercept) < precision); */
     }
 }

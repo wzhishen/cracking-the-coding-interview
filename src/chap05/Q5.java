@@ -10,7 +10,7 @@ public class Q5 {
     int bitsFlipRequired(int a, int b) {
         int cnt = 0;
         int res = a ^ b; //XXX: use XOR!
-        for (int i = res; i > 0; i >>= 1) {//XXX: moving res rather than the testing bit 1
+        for (int i = res; i > 0; i >>= 1) {
             cnt += i & 1;
         }
         return cnt;

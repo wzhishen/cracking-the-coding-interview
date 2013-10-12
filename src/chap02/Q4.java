@@ -34,8 +34,8 @@ public class Q4 {
             }
             n = n.next;
         }
-        list1Tail.next = null;
-        list2Tail.next = null;
+        if (list1Tail != null) list1Tail.next = null;
+        if (list2Tail != null) list2Tail.next = null;
         
 //        if (list1Tail == null) return list2Head; //XXX: edge case: list1 is empty
 //        list1Tail.next = list2Head;

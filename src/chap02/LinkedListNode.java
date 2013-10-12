@@ -20,6 +20,7 @@ public class LinkedListNode {
     }
     
     public static void printList(LinkedListNode n) {
+        if (n == null) System.out.print("NULL");
         while (n != null) {
             System.out.print(n.data + "->");
             n = n.next;

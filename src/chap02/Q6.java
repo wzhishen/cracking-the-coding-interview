@@ -8,9 +8,14 @@ public class Q6 {
         LinkedListNode fastRunner = head;
         LinkedListNode slowRunner = head;
         
-        while (fastRunner != slowRunner) {
+        while (fastRunner != null && fastRunner.next != null) {
             fastRunner = fastRunner.next.next;
             slowRunner = slowRunner.next;
+            if (fastRunner == slowRunner) break;
+        }
+        
+        if (fastRunner != null && fastRunner.next != null) { // no loop
+            return null;
         }
         
         slowRunner = head;

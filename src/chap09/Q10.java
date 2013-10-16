@@ -24,6 +24,7 @@ public class Q10 {
     }
     
     static ArrayList<Box> buildTallestStack(ArrayList<Box> boxes) {
+        if (boxes == null) return null;
         return buildTallestStack(boxes, null);
     }
     
@@ -51,6 +52,7 @@ public class Q10 {
     }
     
     static ArrayList<Box> buildTallestStackDP(ArrayList<Box> boxes) {
+        if (boxes == null) return null;
         return buildTallestStackDP(boxes, null, new HashMap<Box, ArrayList<Box>>());
     }
     

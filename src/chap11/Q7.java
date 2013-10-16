@@ -19,6 +19,7 @@ public class Q7 {
     
     //treat it as a box-stacking problem
     static List<Person> findHighestTower(List<Person> persons, Person bottom) {
+        if (persons == null || persons.isEmpty()) return null;
         int maxNum = 0;
         List<Person> maxList = new ArrayList<Person>();
         for (Person p : persons) {
@@ -37,6 +38,7 @@ public class Q7 {
     
     static List<Person> findHighestTowerDP(List<Person> persons, Person bottom, 
             HashMap<Person, List<Person>> cache) {
+        if (persons == null || persons.isEmpty()) return null;
         if (cache.containsKey(bottom))
             return cache.get(bottom);
         int maxNum = 0;

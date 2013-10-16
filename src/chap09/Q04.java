@@ -7,7 +7,7 @@ import java.util.List;
 public class Q04 {
 //    Write a method to return all subsets of a set.
     
-//    SOLUTION: We compute P(n-l), clone the results, and then add an to each of these cloned sets.
+//    SOLUTION: We compute P(n-1), clone the results, and then add an to each of these cloned sets.
     
     static ArrayList<ArrayList<Integer>> getSubsets2(List<Integer> set) {
         if (set == null) return null;
@@ -20,8 +20,7 @@ public class Q04 {
     
     static private ArrayList<Integer> getIthSubset(int i, List<Integer> set) {
         ArrayList<Integer> subset = new ArrayList<Integer>();
-        int index = 0;
-        for (int k = i; k > 0; k >>= 1, ++index) {//XXX: index is not the same as k
+        for (int k = i, index = 0; k > 0; k >>= 1, ++index) {//XXX: index is not the same as k
             if ((k & 1) > 0) {
                 subset.add(set.get(index));
             }

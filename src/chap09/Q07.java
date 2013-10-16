@@ -7,7 +7,8 @@ public class Q07 {
 //    changes from the original color.
     
     void paintFill(Color[][] screen, int x, int y, Color oldColor, Color newColor) {
-        if (x < 0 || x > screen[0].length || y < 0 || y > screen.length) return;
+        if (screen == null || oldColor == null || newColor == null) return;
+        if (x < 0 || x >= screen[0].length || y < 0 || y >= screen.length) return;
         if (screen[y][x] == oldColor) {
             screen[y][x] = newColor;
             paintFill(screen, x - 1, y, oldColor, newColor);

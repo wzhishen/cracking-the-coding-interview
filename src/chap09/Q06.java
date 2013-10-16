@@ -14,10 +14,10 @@ public class Q06 {
 
     //solution 1
     static Set<String> generateParens(int n) {
-        if (n <= 0) return null;
+        if (n < 0) return null;
         Set<String> ret = new HashSet<String>();
-        if (n == 1) {
-            ret.add("()");
+        if (n == 0) {
+            ret.add("");
         }
         else {//XXX: caution: concurrent modification exception
             Set<String> last = generateParens(n - 1);
@@ -25,11 +25,9 @@ public class Q06 {
                 ret.add("()" + parens);// insert "()" to front
                 for (int i = 0; i < parens.length(); ++i) {// insert "()" after each '('
                     if (parens.charAt(i) == '(') {
-                        ret.add(
-                                parens.substring(0, i + 1) +
+                        ret.add(parens.substring(0, i + 1) +
                                 "()" +
-                                parens.substring(i + 1)
-                                );
+                                parens.substring(i + 1));
                     }
                 }
             }
@@ -62,8 +60,8 @@ public class Q06 {
     }
     
     public static void main(String[]args) {
-        System.out.println(generateParens(5));
-        System.out.println(generateParens2(5));
+        System.out.println(generateParens(7));
+        System.out.println(generateParens2(7));
 //        Set s = new HashSet(generateParens2(4));
 //        s.removeAll(generateParens(4));
 //        System.out.println(s);

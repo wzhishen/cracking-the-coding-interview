@@ -21,6 +21,7 @@ public class Q7_2 {
     
     //treat it as a longest-increasing-subsequence problem
     static List<Person> findHighestTower(List<Person> persons) {
+        if (persons == null || persons.isEmpty()) return null;
         //sort on first attribute
         Collections.sort(persons);
         

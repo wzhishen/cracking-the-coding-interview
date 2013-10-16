@@ -38,10 +38,10 @@ public class Q02 {
     // DP
     static boolean findPathDP(int x, int y) {
         Point p = new Point(x, y);
-        if (x < 0 || y < 0) return false;
-        if (x == 0 && y == 0) return true;
         if (cache.containsKey(p))
             return cache.get(p);
+        if (x < 0 || y < 0) return false;
+        if (x == 0 && y == 0) return true;
         
         boolean success = false;
         if (isFree(x-1, y))
@@ -56,16 +56,20 @@ public class Q02 {
     
     //-----------------------------------------
     public static void main(String[]args) {
-        System.out.println(findPathDP(1,1));
-        for (Point p:cache.keySet()) {
-            System.out.print(p+" "+cache.get(p)+" ");
-        }
+        System.out.println(findPathDP(3,3));
+//        for (Point p:cache.keySet()) {
+//            System.out.print(p+" "+cache.get(p)+" ");
+//        }
         System.out.println("\n"+path);
     }
     
     private static boolean isFree(int x, int y) {
         /*not fully implemented*/
-        if (x==0&&y==2)return false;
+        if (x==0 && y==2 ||
+            x==2 && y==1 ||
+            x==3 && y==2 ||
+            x==1 && y==3)
+            return false;
         return true;
     }
     

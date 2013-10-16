@@ -1,11 +1,11 @@
 package chap11;
 
 public class Q3 {
-static //    Given a sorted array of n integers that has been rotated an unknown number of
+//    Given a sorted array of n integers that has been rotated an unknown number of
 //    times, write code to find an element in the array. You may assume that the array was
 //    originally sorted in increasing order.
     
-    int search(int[] a, int x) {
+    static int search(int[] a, int x) {
         int low = 0;
         int high = a.length - 1;
         while (low <= high) {
@@ -29,6 +29,7 @@ static //    Given a sorted array of n integers that has been rotated an unknown
         return -1;
     }
     
+    // normal binary search
     int binarySearch(int[] a, int x) {
         int low = 0;
         int high = a.length - 1;

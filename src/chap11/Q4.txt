@@ -4,7 +4,18 @@ the file.
 SOLUTION:
 Divide the file into chunks which are x megabytes each, where x is the amount of
 memory we have available. Each chunk is sorted separately and then saved back to the
-file system.
-Once all the chunks are sorted, we then merge the chunks, one by one. At the end, we
-have a fully sorted file.
-This algorithm is known as external sort.
+file system. Say we now have N chunks. Once all the chunks are sorted, we then merge 
+the chunks one by one according to the following algorithm:
+
+1. Divide your memory into (N+1) parts. First N data parts are used for reading data 
+from N chunks, the last one is a buffer.
+2. Load data to fill the first N data parts from N chunks respectively, perform an 
+N-way merge sort to the buffer.
+3. While each data part is not empty, perform the sort. If any data part is empty, load
+new content from the according chunk.
+4. While the buffer is not full, perform the sort. If the buffer is full, write buffer
+to the disk, clear buffer.
+5. Repeat step 3-4 until all N chunks are empty.
+
+At the end, we have a fully sorted file.
+This algorithm is known as *external sort*.

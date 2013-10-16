@@ -10,7 +10,7 @@ public class Q08 {
         if (n < 0) return 0;
         if (n == 0) return 1;
         int sum = 0;
-        switch (coin) { //XXX: note that there is no "break" in-between
+        switch (coin) { //XXX: note that there is no "break"s in-between
             case 25: sum += getNumRepresentations(n - 25, 25);
             case 10: sum += getNumRepresentations(n - 10, 10);
             case 5: sum += getNumRepresentations(n - 5, 5);

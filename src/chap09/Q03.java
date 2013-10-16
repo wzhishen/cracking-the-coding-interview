@@ -8,9 +8,9 @@ public class Q03 {
 //    What if the values are not distinct?
     
     static int getMagicIndex(int[] a, int start, int end) {
-        if (start > end || start < 0 || end > a.length - 1) return -1;
+        if (start > end) return -1;
         
-        int mid = (start + end) / 2;
+        int mid = start + (end - start) / 2;
         if (a[mid] == mid) {
             return mid;
         }
@@ -22,25 +22,29 @@ public class Q03 {
         }
     }
     
-    static int getMagicIndex(int[] a) { return getMagicIndex(a, 0, a.length - 1); }
+    static int getMagicIndex(int[] a) {
+        if (a == null) return -1;
+        return getMagicIndex(a, 0, a.length - 1); 
+    }
     
     static int getMagicIndex2(int[] a, int start, int end) {
-        if (start > end || start < 0 || end > a.length - 1) return -1;
+        if (start > end) return -1;
         
-        int mid = (start + end) / 2;
+        int mid = start + (end - start) / 2;
         if (a[mid] == mid) {
             return mid;
         }
-        int left = Math.min(mid - 1, a[mid]);
-        int ret = getMagicIndex2(a, start, left);
-        if (ret != -1) return ret;
-        
-        int right = Math.max(mid + 1, a[mid]);
-        ret = getMagicIndex2(a, right, end);
+        int ret = getMagicIndex2(a, start, Math.min(mid - 1, a[mid])); // search left
+        if (ret == -1) {
+            ret = getMagicIndex2(a, Math.max(mid + 1, a[mid]), end); // search right
+        }
         return ret;
     }
     
-    static int getMagicIndex2(int[] a) { return getMagicIndex2(a, 0, a.length - 1); }
+    static int getMagicIndex2(int[] a) { 
+        if (a == null) return -1;
+        return getMagicIndex2(a, 0, a.length - 1); 
+    }
     
     //----------------------------------------
     public static void main(String[]args) {

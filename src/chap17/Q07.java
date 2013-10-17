@@ -5,8 +5,8 @@ public class Q07 {
 //    Thousand, Two Hundred Thirty Four").
     
     static String[] digits = {"One", "Two", "Three","Four", "Five", "Six", "Seven", "Eight", "Nine"};
-    static String[] teens = {"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-    static String[] tens = {"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+    static String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    static String[] tens = {"", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
     static String[] bigs = {"", "Thousand", "Million", "Billion"};
     
     static String intToString(int n) {
@@ -33,7 +33,7 @@ public class Q07 {
             n %= 10;
         }
         if (n >= 10) {
-            ret += teens[n - 11] + " ";
+            ret += teens[n - 10] + " ";
             n = 0;
         }
         if (n > 0) {
@@ -44,7 +44,7 @@ public class Q07 {
     
     //---------------------------------------
     public static void main(String[]args) {
-        System.out.println(intToString(319_323_984));
+        System.out.println(intToString(21));
     }
 
 }

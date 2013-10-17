@@ -5,7 +5,7 @@ public class Q04 {
 //    if-else or any other comparison operator.
 //    
 //    SOLUTION:
-//    if..else... can be converted to:
+//    if..else... can be translated to:
 //    RESULT = EXPR_1 * COND + EXPR_2 * flip(COND), where COND with value 1 (0) 
 //    represents true (false).
     

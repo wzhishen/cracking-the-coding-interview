@@ -3,8 +3,8 @@ package chap17;
 public class Q13 {
 //    Consider a simple node-like data structure called BiNode, which has pointers to two
 //    other nodes. The data structure BiNode could be used to represent both a binary
-//    tree (where nodel is the left node and node2 is the right node) or a doubly linked
-//    list (where nodel is the previous node and node2 is the next node). Implement a
+//    tree (where node1 is the left node and node2 is the right node) or a doubly linked
+//    list (where node1 is the previous node and node2 is the next node). Implement a
 //    method to convert a binary search tree (implemented with BiNode) into a doubly
 //    linked list. The values should be kept in order and the operation should be performed
 //    in place (that is, on the original data structure).
@@ -38,6 +38,7 @@ public class Q13 {
         public BiNode(int v) {this(v,null,null);}
     }
     
+    //----------------------------------------
     public static void main(String[]args) {
         BiNode n1 = new BiNode(4);
         BiNode n2 = new BiNode(2);

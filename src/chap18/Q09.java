@@ -8,9 +8,13 @@ public class Q09 {
 //    find and maintain the median value as new values are generated.
 //    
 //    SOLUTION:
-//    Use a max heap, a min heap.
+//    Use a max heap, a min heap, 
+//    where maxheap.size() == minheap.size() or
+//          maxheap.size()-1 == minheap.size() always holds.
     
+    //maxheap contains all SMALL elements
     static PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(50, Collections.reverseOrder());
+    //minheap contains all LARGE elements
     static PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(50);
     
     static void addNum(int n) {
@@ -39,7 +43,7 @@ public class Q09 {
     
     static int getMedian() {
         if (maxHeap.isEmpty()) return 0;
-        if (maxHeap.size() == minHeap.size()) {
+        else if (maxHeap.size() == minHeap.size()) {
             return (maxHeap.peek() + minHeap.peek()) / 2;
         }
         else {

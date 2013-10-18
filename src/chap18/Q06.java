@@ -1,50 +1,19 @@
 package chap18;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Q06 {
-//    Given a list of words, write a program to find the longest word made of other
-//    words in the list.
-//    EXAMPLE
-//    Input: cat, banana, dog, nana, walk, walker, dogwalker
-//    Output: dogwalker
+//    Describe an algorithm to find the smallest one million numbers in one billion
+//    numbers. Assume that the computer memory can hold all one billion numbers.
+    
+    ArrayList<Integer> findNSmallestElements(ArrayList<Integer> nums, int n) {
+        if (nums == null) return null;
+        PriorityQueue<Integer> minheap = new PriorityQueue<Integer>(n);
+        for (int num : nums) {
+            minheap.offer(num);
+        }
+        return new ArrayList<Integer>(minheap);
+    }
 
-    static String findLongestWord(String[] words) {
-        if (words == null) return null;
-        HashSet<String> map = new HashSet<String>();
-        for (String word : words) {
-            map.add(word);
-        }
-        Arrays.sort(words, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return ((Integer) o1.length()).compareTo(o2.length());
-            }
-        });
-        for (String word : words) {
-            if (isValid(word, true, map)) {
-                return word;
-            }
-        }
-        return "";
-    }
-    
-    private static boolean isValid(String word, boolean isOriginal, HashSet<String> map) {
-        if (!isOriginal && map.contains(word)) 
-            return true;
-        for (int i = 1; i < word.length(); ++i) {
-            String left = word.substring(0, i);
-            String right = word.substring(i);
-            if (isValid(left, false, map) && isValid(right, false, map))
-                return true;
-        }
-        return false;
-    }
-    
-    public static void main(String[]args) {
-        String[]a= {"cat", "banana", "dog", "nana", "walk", "walker", "dogwalkers", "s"};
-        System.out.println(findLongestWord(a));
-    }
 }

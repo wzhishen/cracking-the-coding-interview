@@ -1,5 +1,8 @@
 package chap18;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Q03 {
 //    Write a method to randomly generates set of m integers from an array of size n.
 //    Each element must have equal probability of being chosen.
@@ -11,10 +14,7 @@ public class Q03 {
     
     int[] generateRandomSubset(int[] a, int m) {
         assert m <= a.length;
-        int[] ret = new int[m];
-        for (int i = 0; i < m; ++i) {
-            ret[i] = a[i];
-        }
+        int[] ret = Arrays.copyOfRange(a, 0, m);
         for (int i = m; i < a.length; ++i) {
             int r = rand(0, i);
             if (r < m) {
@@ -24,6 +24,9 @@ public class Q03 {
         return ret;
     }
     
-    int rand(int beg, int end) { /* Not implemented */ return 0; }
+    int rand(int beg, int end) {
+        Random r = new Random();
+        return r.nextInt(end-beg+1)+beg;
+    }
 
 }

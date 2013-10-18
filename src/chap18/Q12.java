@@ -4,7 +4,7 @@ public class Q12 {
 //    Given an NxN matrix of positive and negative integers, write code to find the
 //    submatrix with the largest possible sum.
     
-    //brute force
+    //brute force: O(n^6) time.
     //returns [r1, c1, r2, c2, sum] where (r1,c1),(r2,c2) represents 
     //the diagonal of submatrix
     static int[] findLargestSubmatrix(int[][] matrix) {
@@ -34,6 +34,39 @@ public class Q12 {
             }
         }
         return sum;
+    }
+    
+    //preprocess matrix: O(n^4) time, reducing getSum to constant time.
+    int[][] processMatrix(int[][] m) {
+        if (m == null) return null;
+        int[][] sumMatrix = new int[m.length][m[0].length];
+        for (int i = 0; i < m.length; ++ i) {
+            int sumRowOne = 0; int sumColOne = 0;
+            for (int j = 0; j < m[0].length; ++j) {
+                if (i == 0) {
+                    sumRowOne += m[i][j];
+                    sumMatrix[i][j] = sumRowOne;
+                }
+                if (j == 0) {
+                    sumColOne += m[i][j];
+                    sumMatrix[i][j] = sumColOne;
+                }
+                if (i != 0 && j != 0) {
+                    sumMatrix[i][j] = m[i][j] + 
+                            sumMatrix[i][j-1] + 
+                            sumMatrix[i-1][j] - 
+                            sumMatrix[i-1][j-1];
+                }
+            }
+        }
+        return sumMatrix;
+    }
+    
+    static int getSum2(int[][] sumMatrix, int r1, int c1, int r2, int c2) {
+        return sumMatrix[r2][c2] - 
+                sumMatrix[r1][c2] - 
+                sumMatrix[r2][c1] + 
+                sumMatrix[r1][c1];
     }
     
     //--------------------------------------

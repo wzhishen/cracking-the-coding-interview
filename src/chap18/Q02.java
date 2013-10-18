@@ -1,5 +1,7 @@
 package chap18;
 
+import java.util.Random;
+
 public class Q02 {
 //    Write a method to shuffle a deck of cards. It must be a perfect shuffle¡ªin other
 //    words, each of the 52! permutations of the deck has to be equally likely. Assume
@@ -16,6 +18,9 @@ public class Q02 {
         }
     }
     
-    int rand(int beg, int end) { /* Not implemented */ return 0; }
+    int rand(int beg, int end) {
+        Random r = new Random();
+        return r.nextInt(end-beg+1)+beg;
+    }
 
 }

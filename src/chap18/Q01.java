@@ -20,8 +20,8 @@ public class Q01 {
     
     int add(int a, int b) {
         if (b == 0) return a;
-        int sum = a^b; // add without carrying
-        int carry = (a&b) << 1; // add but only do carrying
+        int sum = a ^ b; // add without carrying
+        int carry = (a & b) << 1; // add but only do carrying
         return add(sum, carry);
     }
 }

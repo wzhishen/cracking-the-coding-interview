@@ -9,11 +9,15 @@ public class Q06 {
     
     ArrayList<Integer> findNSmallestElements(ArrayList<Integer> nums, int n) {
         if (nums == null) return null;
-        PriorityQueue<Integer> minheap = new PriorityQueue<Integer>(n);
+        PriorityQueue<Integer> minheap = new PriorityQueue<Integer>();
+        ArrayList<Integer> ret = new ArrayList<Integer>();
         for (int num : nums) {
             minheap.offer(num);
         }
-        return new ArrayList<Integer>(minheap);
+        for (int i = 0; i < n; ++i) {
+            ret.add(minheap.poll());
+        }
+        return ret;
     }
 
 }

@@ -57,10 +57,7 @@ public class Q02 {
     //-----------------------------------------
     public static void main(String[]args) {
         System.out.println(findPathDP(3,3));
-//        for (Point p:cache.keySet()) {
-//            System.out.print(p+" "+cache.get(p)+" ");
-//        }
-        System.out.println("\n"+path);
+        System.out.println(path);
     }
     
     private static boolean isFree(int x, int y) {
@@ -78,8 +75,6 @@ public class Q02 {
         public Point(int x, int y) {this.x=x; this.y=y;}
         @Override
         public String toString() {return "("+x+", "+y+")";}
-//        @Override
-//        public int hashCode() {return 13*x+17*y;}
     }
 
 }

@@ -16,7 +16,6 @@ public class Q05 {
             return strings;
         }
         ArrayList<String> last = getPermutations(s.substring(1));
-        strings = new ArrayList<String>();
         for (String oldString : last) {
             for (int i = 0; i <= oldString.length(); ++i) {
                 strings.add(

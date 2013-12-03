@@ -19,7 +19,7 @@ public class Q12 {
         while (head < tail) {
             if (a[head] + a[tail] == sum) {
                 ArrayList<Integer> pair = new ArrayList<Integer>();
-                pair.add(head); pair.add(tail);
+                pair.add(a[head]); pair.add(a[tail]);
                 ret.add(pair);
                 ++head;
                 --tail;
@@ -43,7 +43,7 @@ public class Q12 {
         for (int i = 0; i < a.length; ++i) {
             if (map.containsKey(a[i])) {
                 ArrayList<Integer> pair = new ArrayList<Integer>();
-                pair.add(map.get(a[i])); pair.add(i);
+                pair.add(a[map.get(a[i])]); pair.add(a[i]);
                 ret.add(pair);
             }
             else {

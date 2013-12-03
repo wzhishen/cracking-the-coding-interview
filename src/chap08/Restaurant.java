@@ -1,8 +1,5 @@
 package chap08;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Restaurant {
     private static Restaurant _instance = null;
     
@@ -14,4 +11,8 @@ public class Restaurant {
         }
         return _instance;
     }
+    
+    public void serve() {}
+    public void open() {}
+    public boolean isOpen() {return false;}
 }

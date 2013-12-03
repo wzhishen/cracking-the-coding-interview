@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Q10 {
+//    You have a stack of n boxes, with widths w, heights h and depths d. The boxes
+//    cannot be rotated and can only be stacked on top of one another if each box in the
+//    stack is strictly larger than the box above it in width, height, and depth. Implement
+//    a method to build the tallest stack possible, where the height of a stack is the sum of
+//    the heights of each box.
     
     static ArrayList<Box> buildTallestStack(ArrayList<Box> boxes, Box bottom) {
         ArrayList<Box> maxStack = null;
@@ -30,7 +35,7 @@ public class Q10 {
     
     static ArrayList<Box> buildTallestStackDP(ArrayList<Box> boxes, Box bottom, 
             HashMap<Box, ArrayList<Box>> cache) {
-        if (bottom != null && cache.containsKey(bottom))
+        if (cache.containsKey(bottom))
             return cache.get(bottom);
         
         ArrayList<Box> maxStack = null;

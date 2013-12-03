@@ -20,7 +20,7 @@ public class Q07 {
         Arrays.sort(words, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                return ((Integer) o1.length()).compareTo(o2.length());
+                return ((Integer) o2.length()).compareTo(o1.length());
             }
         });
         for (String word : words) {

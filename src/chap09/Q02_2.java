@@ -17,6 +17,7 @@ public class Q02_2 {
         path.add(0, p);
         if (x == 0 && y == 0) {
             result.add((ArrayList<Point>) path.clone());
+            // do NOT add 'return;' here!
         }
         findPath(result, path, x - 1, y);
         findPath(result, path, x, y - 1);
@@ -32,6 +33,7 @@ public class Q02_2 {
         if (x == 0 && y == 0) {
             ArrayList<Point> res = new ArrayList<Point>(Arrays.asList(path));
             result.add(res);
+            return; // optional
         }
         findPath2(result, path, index - 1, x - 1, y);
         findPath2(result, path, index - 1, x, y - 1);

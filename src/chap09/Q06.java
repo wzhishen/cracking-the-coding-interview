@@ -41,7 +41,7 @@ public class Q06 {
         if (leftParenNum < 0 || rightParenNum < 0) return;
         if (leftParenNum == 0 && rightParenNum == 0) {
             //do not attempt to use StringBuffer instead of char[]
-            parens.add(String.valueOf(string));
+            parens.add(new String(string));
             return;
         }
         if (leftParenNum > 0) {

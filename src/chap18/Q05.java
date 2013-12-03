@@ -58,7 +58,7 @@ public class Q05 {
         ArrayList<Integer> l2 = map.get(word2);
         int h1 = 0;
         int h2 = 0;
-        while (h1 < l1.size() || h2 < l2.size()) {
+        while (h1 < l1.size() && h2 < l2.size()) {
             if (l1.get(h1) < l2.get(h2)) {
                 res.add(new Position(1, l1.get(h1)));
                 ++h1;

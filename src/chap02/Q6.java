@@ -14,7 +14,7 @@ public class Q6 {
             if (fastRunner == slowRunner) break;
         }
         
-        if (fastRunner != null && fastRunner.next != null) { // no loop
+        if (fastRunner != slowRunner) { // no loop
             return null;
         }
         

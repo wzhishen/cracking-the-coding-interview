@@ -45,7 +45,7 @@ public class Q7 {
         List<Person> maxList = new ArrayList<Person>();
         for (Person p : persons) {
             if (p.canStandAbove(bottom)) {
-                List<Person> retList = findHighestTower(persons, p);
+                List<Person> retList = findHighestTowerDP(persons, p, cache);
                 if (retList.size() > maxNum) {
                     maxNum = retList.size();
                     maxList = retList;

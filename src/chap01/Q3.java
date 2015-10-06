@@ -16,7 +16,7 @@ public class Q3 {
         for (int i = 0; i < s1.length(); ++i) {
             ++charCount[s1.charAt(i)];
         }
-        
+
         for (int i = 0; i < s2.length(); ++i) {
             if (--charCount[s2.charAt(i)] < 0)
                 return false;
@@ -28,6 +28,7 @@ public class Q3 {
         if (s1 == null && s2 == null) return true;
         if (s1 == null || s2 == null) return false;
         if (s1.length() != s2.length()) return false;
+
         char[] charArray1 = s1.toCharArray();
         char[] charArray2 = s2.toCharArray();
         Arrays.sort(charArray1);

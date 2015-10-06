@@ -1,5 +1,7 @@
 package chap01;
 
+import static helpers.Printer.*;
+
 /**
  * Implement a method to perform basic string compression using the counts of
  * repeated characters. For example, the string aabcccccaaa would become
@@ -32,10 +34,10 @@ public class Q5 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        System.out.println(compress("aabcccccaaa"));
-        System.out.println(compress("aabbcc"));
-        System.out.println(compress("aaaaaaaaaaaaaaaaaaaaa"));
-        System.out.println(compress("abcdefg"));
-        System.out.println(compress("a"));
+        println(compress("aabcccccaaa"));
+        println(compress("aabbcc"));
+        println(compress("aaaaaaaaaaaaaaaaaaaaa"));
+        println(compress("abcdefg"));
+        println(compress("a"));
     }
 }

@@ -2,13 +2,14 @@ package chap02;
 
 import java.util.HashSet;
 
+/**
+ * Write code to remove duplicates from an unsorted linked list.
+ * FOLLOW UP
+ * How would you solve this problem if a temporary buffer is not allowed?
+ */
 public class Q1 {
-    //Write code to remove duplicates from an unsorted linked list.
-    //FOLLOW UP
-    //How would you solve this problem if a temporary buffer is not allowed?
-    
     // with extra space
-    void removeDuplicates(LinkedListNode n) {
+    static void removeDuplicates(LinkedListNode n) {
         HashSet<Integer> set = new HashSet<Integer>();
         LinkedListNode prev = null;
         while (n != null) {
@@ -22,21 +23,30 @@ public class Q1 {
             n = n.next;
         }
     }
-    
+
     //without extra space
-    void removeDuplicates2(LinkedListNode n) {
-        LinkedListNode curr = n;
-        while (curr != null) {
+    static void removeDuplicates2(LinkedListNode n) {
+        while (n != null) {
             LinkedListNode runner = n;
-            while (runner != null) {
-                if (runner.next != null && runner.next.data == curr.data) {
+            while (runner.next != null) {
+                if (runner.next.data == n.data) {
                     runner.next = runner.next.next;
-                }
-                else {//XXX
+                } else {
                     runner = runner.next;
                 }
             }
-            curr = curr.next;
+            n = n.next;
         }
+    }
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        int[] list = new int[] {1,1,2,3,3,4,2,5,5};
+        LinkedListNode n = LinkedListNode.buildList(list);
+        removeDuplicates(n);
+        LinkedListNode.printList(n);
+        n = LinkedListNode.buildList(list);
+        removeDuplicates2(n);
+        LinkedListNode.printList(n);
     }
 }

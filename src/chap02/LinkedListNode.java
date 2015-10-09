@@ -1,14 +1,14 @@
 package chap02;
 
 public class LinkedListNode {
-    int data;
-    LinkedListNode next;
-    
+    public int data;
+    public LinkedListNode next;
+    private static int MAX_PRINT_LENGTH = 500;
     public LinkedListNode(int x) {
         data = x;
         next = null;
     }
-    
+
     public static LinkedListNode buildList(int[] a) {
         LinkedListNode n = new LinkedListNode(a[0]);
         LinkedListNode head = n;
@@ -18,13 +18,21 @@ public class LinkedListNode {
         }
         return head;
     }
-    
+
     public static void printList(LinkedListNode n) {
-        if (n == null) System.out.print("NULL");
+        int i = 0;
         while (n != null) {
             System.out.print(n.data + "->");
             n = n.next;
+            if (++i > MAX_PRINT_LENGTH) {
+                System.out.println("[MAX_LEN]");
+                return;
+            }
         }
-        System.out.println();
+        System.out.println("NULL");
+    }
+
+    public String toString() {
+        return String.valueOf(data);
     }
 }

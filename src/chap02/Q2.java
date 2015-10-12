@@ -22,7 +22,7 @@ public class Q2 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        int[] list = new int[] {5,4,3,2,1,0};
+        int[] list = {5,4,3,2,1,0};
         LinkedListNode n = LinkedListNode.buildList(list);
         println(nthToLast(n, 0));
         println(nthToLast(n, 3));

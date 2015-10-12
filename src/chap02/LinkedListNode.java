@@ -4,12 +4,14 @@ public class LinkedListNode {
     public int data;
     public LinkedListNode next;
     private static int MAX_PRINT_LENGTH = 500;
+
     public LinkedListNode(int x) {
         data = x;
         next = null;
     }
 
     public static LinkedListNode buildList(int[] a) {
+        if (a == null || a.length == 0) return null;
         LinkedListNode n = new LinkedListNode(a[0]);
         LinkedListNode head = n;
         for (int i = 1; i < a.length; ++i) {

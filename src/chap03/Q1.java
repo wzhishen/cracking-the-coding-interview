@@ -1,41 +1,93 @@
 package chap03;
 
+import static helpers.Printer.*;
+
+import java.util.Arrays;
+
+/**
+ * Describe how you could use a single array to implement three stacks.
+ */
 public class Q1 {
-    //Describe how you could use a single array to implement three stacks.
-    
-    final int STACK_SIZE = 100;
-    int[] buffer = new int[3 * STACK_SIZE];
-    int[] stackPointer = {-1, -1, -1}; // relative index
-    
-    void push(int stackNum, int x) {
+    private static final int STACK_SIZE = 50;
+    private static final int STACK_NUM = 3;
+
+    private static int[] stackPointers = new int[STACK_NUM];
+    static { Arrays.fill(stackPointers, -1); }
+    private int[] buffer = new int[STACK_SIZE * STACK_NUM];
+
+    public void push(int stackNum, int item) {
         if (isFull(stackNum))
-            throw new IllegalArgumentException("Stack is full!");
-        ++stackPointer[stackNum];
-        buffer[getAbsIndex(stackNum)] = x;
-    }
-    
-    int pop(int stackNum) {
-        int ret = peek(stackNum);
-        --stackPointer[stackNum];
-        return ret;
-    }
-    
-    int peek(int stackNum) {
-        if (isEmpty(stackNum))
-            throw new IllegalArgumentException("Stack is empty!");
-        return buffer[getAbsIndex(stackNum)];
-    }
-    
-    boolean isEmpty(int stackNum) {
-        return stackPointer[stackNum] == -1;
-    }
-    
-    boolean isFull(int stackNum) {
-        return stackPointer[stackNum] == STACK_SIZE - 1;
-    }
-    
-    private int getAbsIndex(int stackNum) {
-        return stackNum * STACK_SIZE + stackPointer[stackNum];
+            throw new IllegalArgumentException("Stack " + stackNum + " is full!");
+        ++stackPointers[stackNum];
+        setTop(stackNum, item);
     }
 
+    public int pop(int stackNum) {
+        if (isEmpty(stackNum))
+            throw new IllegalArgumentException("Stack " + stackNum + " is empty!");
+        --stackPointers[stackNum];
+        return getTop(stackNum);
+    }
+
+    public int peek(int stackNum) {
+        if (isEmpty(stackNum))
+            throw new IllegalArgumentException("Stack " + stackNum + " is empty!");
+        return getTop(stackNum);
+    }
+
+    public boolean isFull(int stackNum) {
+        if (stackNum < 0 || stackNum >= STACK_NUM)
+            throw new IllegalArgumentException("Stack " + stackNum + " doen't exist!");
+        return stackPointers[stackNum] >= STACK_SIZE - 1;
+    }
+
+    public boolean isEmpty(int stackNum) {
+        if (stackNum < 0 || stackNum >= STACK_NUM)
+            throw new IllegalArgumentException("Stack " + stackNum + " doen't exist!");
+        return stackPointers[stackNum] <= -1;
+    }
+
+    public void printStack(int stackNum) {
+        if (stackNum < 0 || stackNum >= STACK_NUM)
+            throw new IllegalArgumentException("Stack " + stackNum + " doen't exist!");
+        int top = getBufferIndex(stackNum);
+        int btm = stackNum * STACK_SIZE;
+        print("Stack " + stackNum + ": ");
+        for (int i = btm; i <= top; ++i) {
+            print(buffer[i] + " ");
+        }
+        println("[TOP]");
+    }
+
+    public void printStacks() {
+        for (int i = 0; i < STACK_NUM; ++i) {
+            printStack(i);
+        }
+    }
+
+    private int getTop(int stackNum) {
+        return buffer[getBufferIndex(stackNum)];
+    }
+
+    private void setTop(int stackNum, int item) {
+        buffer[getBufferIndex(stackNum)] = item;
+    }
+
+    private int getBufferIndex(int stackNum) {
+        return stackPointers[stackNum] + stackNum * STACK_SIZE;
+    }
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        Q1 stack = new Q1();
+        stack.printStacks();
+        println();
+        stack.push(0, -1); stack.push(0, -2); stack.push(0, -3);
+        stack.push(1, 1); stack.push(1, 2); stack.push(1, 3);
+        stack.push(2, 10); stack.push(2, 20); stack.push(2, 30); stack.push(2, 40);
+        stack.printStacks();
+        println();
+        stack.pop(0); stack.pop(1); stack.pop(1); stack.pop(2);
+        stack.printStacks();
+    }
 }

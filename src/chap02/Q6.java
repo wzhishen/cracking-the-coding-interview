@@ -25,7 +25,7 @@ public class Q6 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        int[] list = new int[] {1,2,3,4,5,6};
+        int[] list = {1,2,3,4,5,6};
         LinkedListNode n = LinkedListNode.buildList(list), head = n;
         println(findBeginning(head));
 

@@ -1,23 +1,36 @@
 package chap03;
 
+import static helpers.Printer.*;
+
+import java.util.Arrays;
 import java.util.Stack;
 
+/**
+ * Write a program to sort a stack in ascending order (with
+ * biggest items on top). You may use at most one additional
+ * stack to hold items, but you may not copy the elements into
+ * any other data structure (such as an array). The stack supports
+ * the following operations: push, pop, peek, and isEmpty.
+ */
 public class Q6 {
-    //Write a program to sort a stack in ascending order (with biggest items on top).
-    //You may use at most one additional stack to hold items, but you may not copy the
-    //elements into any other data structure (such as an array). The stack supports the
-    //following operations: push, pop, peek, and isEmpty.
-    
-    // This algorithm is 0(N2) time and 0(N) space.
-    Stack<Integer> sortStack(Stack<Integer> s) {
-        Stack<Integer> ret = new Stack<Integer>();
-        while (!s.isEmpty()) {
-            int val = s.pop();
-            while (!ret.isEmpty() && ret.peek() > val) {
-                s.push(ret.pop());
+    //O(N2) time and O(N) space.
+    public static Stack<Integer> sortStack(Stack<Integer> stack) {
+        Stack<Integer> result = new Stack<Integer>();
+        while (!stack.isEmpty() ) {
+            int item = stack.pop();
+            while (!result.isEmpty() && item < result.peek()) {
+                stack.push(result.pop());
             }
-            ret.push(val);
+            result.push(item);
         }
-        return ret;
+        return result;
+    }
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        Integer[] a = {2,6,5,4,1,3,8,7};
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.addAll(Arrays.asList(a));
+        print(sortStack(stack));
     }
 }

@@ -41,7 +41,7 @@ public class Q1 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        int[] list = new int[] {1,1,2,3,3,4,2,5,5};
+        int[] list = {1,1,2,3,3,4,2,5,5};
         LinkedListNode n = LinkedListNode.buildList(list);
         removeDuplicates(n);
         LinkedListNode.printList(n);

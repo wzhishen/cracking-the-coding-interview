@@ -18,7 +18,7 @@ public class Q3 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        int[] list = new int[] {3,2,1,0};
+        int[] list = {3,2,1,0};
         LinkedListNode head = LinkedListNode.buildList(list);
         LinkedListNode n1 = head.next,
                        n2 = head.next.next.next,

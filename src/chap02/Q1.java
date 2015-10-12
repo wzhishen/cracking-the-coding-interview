@@ -2,6 +2,8 @@ package chap02;
 
 import java.util.HashSet;
 
+import helpers.LinkedListNode;
+
 /**
  * Write code to remove duplicates from an unsorted linked list.
  * FOLLOW UP

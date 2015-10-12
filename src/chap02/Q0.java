@@ -1,5 +1,7 @@
 package chap02;
 
+import helpers.LinkedListNode;
+
 public class Q0 {
     public static LinkedListNode reverseList(LinkedListNode n) {
         if (n == null || n.next == null) return n;

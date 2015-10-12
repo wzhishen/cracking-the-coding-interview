@@ -1,5 +1,7 @@
 package chap02;
 
+import helpers.LinkedListNode;
+
 public class E2 {
     public LinkedListNode merge(LinkedListNode n1, LinkedListNode n2) {
         if (n1 == null) return n2;

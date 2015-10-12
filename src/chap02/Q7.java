@@ -3,6 +3,8 @@ package chap02;
 import static helpers.Printer.*;
 import java.util.Stack;
 
+import helpers.LinkedListNode;
+
 /**
  * Implement a function to check if a linked list is 
  * a palindrome (like 0->1->2->1->0).

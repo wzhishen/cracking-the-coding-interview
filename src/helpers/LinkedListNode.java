@@ -1,4 +1,4 @@
-package chap02;
+package helpers;
 
 public class LinkedListNode {
     public int data;

@@ -2,6 +2,8 @@ package chap02;
 
 import static helpers.Printer.*;
 
+import helpers.LinkedListNode;
+
 /**
  * Given a circular linked list, implement an algorithm which returns
  * the node at the beginning of the loop.

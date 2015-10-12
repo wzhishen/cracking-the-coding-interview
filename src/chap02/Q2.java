@@ -2,6 +2,8 @@ package chap02;
 
 import static helpers.Printer.*;
 
+import helpers.LinkedListNode;
+
 /**
  * Implement an algorithm to find the kth to last element of a singly linked list.
  */

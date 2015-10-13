@@ -53,9 +53,11 @@ public class Q1 {
         TreeNode n1 = new TreeNode(1), n2 = new TreeNode(3), r = new TreeNode(4);
         n1.left = new TreeNode(2); n1.right = n2;
         r.left = n1; r.right = new TreeNode(5);
+        TreeNode.printTree(r);
         print(isBalanced(r) + " ");
         print(isBalanced2(r) + " ");
         println(isBalanced3(r));
+
         /*
          *     4
          *    / \
@@ -66,6 +68,7 @@ public class Q1 {
          *       6
          */
         n2.right = new TreeNode(6);
+        TreeNode.printTree(r);
         print(isBalanced(r) + " ");
         print(isBalanced2(r) + " ");
         print(isBalanced3(r));

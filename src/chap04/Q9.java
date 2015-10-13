@@ -1,47 +1,76 @@
 package chap04;
 
+import static helpers.Printer.*;
+
+import java.util.LinkedList;
+
+/**
+ * You are given a binary tree in which each node contains a
+ * value. Design an algorithm to print all paths which sum to
+ * a given value. The path does not need to start or end at
+ * the root or a leaf.
+ */
 public class Q9 {
-    //You are given a binary tree in which each node contains a value. Design an algorithm
-    //to print all paths which sum to a given value. The path does not need to
-    //start or end at the root or a leaf.
-    
-    static void findSum(TreeNode root, int sum) {
-        findSum(root, sum, new int[getHeight(root)], 0);
+    public static LinkedList<LinkedList<TreeNode>> findSumPaths(TreeNode root, int target) {
+        LinkedList<LinkedList<TreeNode>> result = new LinkedList<LinkedList<TreeNode>>();
+        findSumPaths(root, target, new LinkedList<TreeNode>(), result);
+        return result;
     }
-    
-    private static void findSum(TreeNode n, int sum, int[] path, int level) {
+
+    @SuppressWarnings("unchecked")
+    private static void findSumPaths(TreeNode n, int target, LinkedList<TreeNode> path, LinkedList<LinkedList<TreeNode>> result) {
         if (n == null) return;
-        
-        path[level] = n.value;
-        int s = 0;
-        for (int i = level; i >= 0; --i) {
-            s += path[i];
-            if (s == sum)
-                print(path, i, level);
+        path.add(n);
+        int sum = 0;
+        LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
+        for (int i = path.size() - 1; i >= 0; --i) {
+            TreeNode node = path.get(i);
+            nodes.add(node);
+            sum += node.value;
+            if (sum == target) {
+                result.add((LinkedList<TreeNode>) nodes.clone());
+            }
         }
-        
-        findSum(n.left, sum, path, level + 1);
-        findSum(n.right, sum, path, level + 1);
+        findSumPaths(n.left,  target, path, result);
+        findSumPaths(n.right, target, path, result);
+
+        // "Pop" recursion stack top.
+        // Alternatively, clone path when passing it in recursive
+        // calls, or use native array to hold path.
+        path.removeLast();
     }
-    
-    private static int getHeight(TreeNode n) {
-        if (n == null) return 0;
-        return Math.max(getHeight(n.left), getHeight(n.right)) + 1;
-    }
-    
-    private static void print(int[] path, int start, int end) {
-        for (int i = start; i <= end; ++i) {
-            System.out.print(path[i] + " ");
-        }
-        System.out.println();
-    }
-    
-    //------------------------------
+
+    //TEST----------------------------------
     public static void main(String[]args) {
-        TreeNode r = new TreeNode(1);
-        TreeNode n1 = new TreeNode(3); n1.right=new TreeNode(0);
-        TreeNode n2 = new TreeNode(2);TreeNode n3=new TreeNode(1);n3.left=new TreeNode(-1);
-        n2.left=n3;r.left=n2;r.right=n1;
-        findSum(r, 3);
+        /*
+         *     4
+         *    / \
+         *   5   2
+         *  / \   \
+         * 1   3   7
+         * \   /  /
+         *  8 6  9
+         */
+        TreeNode n1 = new TreeNode(1), n2 = new TreeNode(2), n3 = new TreeNode(3),
+                 n4 = new TreeNode(4), n5 = new TreeNode(5), n6 = new TreeNode(6),
+                 n7 = new TreeNode(7), n8 = new TreeNode(8), n9 = new TreeNode(9);
+        n4.left = n5; n4.right = n2; n5.left = n1; n5.right = n3; n1.right = n8;
+        n3.left = n6; n2.right = n7; n7.left = n9;
+        TreeNode.printTree(n4);
+        println();
+        LinkedList<LinkedList<TreeNode>> result = findSumPaths(n4, 9);
+        printResult(result);
+        result = findSumPaths(n4, 6);
+        printResult(result);
+    }
+
+    private static void printResult(LinkedList<LinkedList<TreeNode>> result) {
+        for (LinkedList<TreeNode> path : result) {
+            for (TreeNode n : path) {
+                print(n + " ");
+            }
+            println();
+        }
+        println();
     }
 }

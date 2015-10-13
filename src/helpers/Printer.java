@@ -14,6 +14,14 @@ public class Printer {
         println();
     }
 
+    public static void printf(String s, Object... args) {
+        print(String.format(s, args));
+    }
+
+    public static void printfln(String s, Object... args) {
+        println(String.format(s, args));
+    }
+
     private static String lineSeparator() {
         return System.lineSeparator();
     }

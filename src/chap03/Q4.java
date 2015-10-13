@@ -32,14 +32,12 @@ public class Q4 {
 
     public static void moveTop(Tower from, Tower to) {
         if (to.disks.isEmpty() || from.disks.peek() < to.disks.peek()) {
-            println(String.format(
-                    "Move disk %d from tower %d to tower %d",
-                    from.disks.peek(), from.id, to.id));
+            printfln("Move disk %d from tower %d to tower %d",
+                     from.disks.peek(), from.id, to.id);
             to.disks.push(from.disks.pop());
         } else {
-            println(String.format(
-                    "Unable to move disk %d on top of smaller disk %d from tower %d to tower %d",
-                    from.disks.peek(), to.disks.peek(), from.id, to.id));
+            printfln("Unable to move disk %d on top of smaller disk %d from tower %d to tower %d",
+                     from.disks.peek(), to.disks.peek(), from.id, to.id);
         }
     }
 

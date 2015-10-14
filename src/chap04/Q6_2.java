@@ -1,5 +1,7 @@
 package chap04;
 
+import helpers.TreeNode;
+
 public class Q6_2 {
     TreeNode preorderSuccessor(TreeNode n) {
         if (n == null) return null;

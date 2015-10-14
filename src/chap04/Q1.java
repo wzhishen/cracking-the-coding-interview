@@ -2,6 +2,8 @@ package chap04;
 
 import static helpers.Printer.*;
 
+import helpers.TreeNode;
+
 /**
  * Implement a function to check if a binary tree is balanced.
  * For the purposes of this question, a balanced tree is defined

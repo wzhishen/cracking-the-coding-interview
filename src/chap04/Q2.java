@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+import helpers.GraphNode;
+
 /**
  * Given a directed graph, design an algorithm to find out
  * whether there is a route between two nodes.

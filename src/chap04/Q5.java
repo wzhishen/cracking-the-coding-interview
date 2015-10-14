@@ -2,6 +2,8 @@ package chap04;
 
 import static helpers.Printer.*;
 
+import helpers.TreeNode;
+
 /**
  * Implement a function to check if a binary tree is a binary search
  * tree. More precisely, the condition is that ALL left nodes must be

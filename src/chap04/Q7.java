@@ -2,6 +2,8 @@ package chap04;
 
 import static helpers.Printer.*;
 
+import helpers.TreeNode;
+
 /**
  * Design an algorithm and write code to find the first common
  * ancestor of two nodes in a binary tree. Avoid storing additional

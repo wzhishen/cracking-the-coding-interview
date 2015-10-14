@@ -4,6 +4,8 @@ import static helpers.Printer.*;
 
 import java.util.LinkedList;
 
+import helpers.TreeNode;
+
 /**
  * You are given a binary tree in which each node contains a
  * value. Design an algorithm to print all paths which sum to

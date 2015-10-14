@@ -1,5 +1,7 @@
 package chap04;
 
+import helpers.TreeNode;
+
 public class Q5_2 {
     //Implement a function to check if a binary tree is a binary search tree.
     //

@@ -2,6 +2,8 @@ package chap04;
 
 import static helpers.Printer.*;
 
+import helpers.TreeNode;
+
 /**
  * You have two very large binary trees: Tl, with millions of
  * nodes, and T2, with hundreds of nodes. Create an algorithm

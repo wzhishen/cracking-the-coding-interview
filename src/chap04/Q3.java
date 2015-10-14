@@ -2,6 +2,8 @@ package chap04;
 
 import static helpers.Printer.*;
 
+import helpers.TreeNode;
+
 /**
  * Given a sorted (increasing order) array with unique integer
  * elements, write an algorithm to create a binary search tree

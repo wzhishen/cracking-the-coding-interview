@@ -18,7 +18,7 @@ public class Q6 {
     }
 
     //TEST----------------------------------
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         String bitString = "01001011";
         int bits = toInt(bitString);
         println(bitString);

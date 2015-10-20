@@ -1,40 +1,73 @@
 package chap07;
 
-import java.util.ArrayList;
-import java.util.List;
+import static helpers.Printer.*;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+/**
+ * Design an algorithm to find the kth number such that the only
+ * prime factors are 3, 5, and 7.
+ */
 public class Q7 {
-//    Design an algorithm to find the kth number such that the only prime factors are 3,
-//    5, and 7.
-    static int findKthNum(int k) {// start with k = 1
+    public static int findKthNum(int k) {
         if (k <= 0) return -1;
-        
-        int val = 1;
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(val);
+        int num = 1;
+        ArrayList<Integer> q = new ArrayList<Integer>();
+        q.add(num);
         for (int i = 0; i < k; ++i) {
-            val = removeMin(list);
-            list.add(3 * val); list.add(5 * val); list.add(7 * val);
+            num = removeMin(q);
+            q.add(3 * num);
+            q.add(5 * num);
+            q.add(7 * num);
         }
-        return val;
+        return num;
     }
-    
-    private static int removeMin(List<Integer> list) {
-        Integer min = Integer.MAX_VALUE;//XXX: note Integer not int due to remove(Object) call
-        for (Integer i : list) {
-            if (i < min) min = i;
+
+    private static int removeMin(ArrayList<Integer> q) {
+        Integer min = Integer.MAX_VALUE;
+        for (int n : q) {
+            if (n < min) min = n;
         }
-        //XXX: or more fancy one:
-        //while(list.remove(min));
-        while (list.contains(min))
-            list.remove(min);
+        while (q.contains(min)) {
+            q.remove(min);
+        }
         return min;
     }
-    
-    //-----------------------------------------
-    public static void main(String[]args) {
-        for (int i = 1; i <=10; ++i)
-            System.out.println(findKthNum(i));
+
+    public static int findKthNum2(int k) {
+        if (k <= 0) return -1;
+        int num = 1;
+        LinkedList<Integer> q3 = new LinkedList<Integer>();
+        LinkedList<Integer> q5 = new LinkedList<Integer>();
+        LinkedList<Integer> q7 = new LinkedList<Integer>();
+        q3.add(num);
+        for (int i = 0; i < k; ++i) {
+            int n3 = q3.isEmpty() ? Integer.MAX_VALUE : q3.peek();
+            int n5 = q5.isEmpty() ? Integer.MAX_VALUE : q5.peek();
+            int n7 = q7.isEmpty() ? Integer.MAX_VALUE : q7.peek();
+            num = Math.min(n3, Math.min(n5, n7));
+            if (num == n3) {
+                q3.removeFirst();
+                q3.add(3 * num);
+                q5.add(5 * num);
+                q7.add(7 * num);
+            } else if (num == n5) {
+                q5.removeFirst();
+                q5.add(5 * num);
+                q7.add(7 * num);
+            } else if (num == n7) {
+                q7.removeFirst();
+                q7.add(7 * num);
+            }
+        }
+        return num;
     }
 
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        for (int i = 1; i <= 20; ++i) {
+            println(findKthNum(i) + " " + findKthNum2(i));
+        }
+    }
 }

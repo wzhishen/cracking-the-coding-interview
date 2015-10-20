@@ -38,7 +38,7 @@ public class Q3 {
     }
 
     //TEST----------------------------------
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         test(5);
         test(50);
     }

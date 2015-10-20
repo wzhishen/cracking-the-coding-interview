@@ -39,7 +39,7 @@ public class Q8 {
     }
 
     //TEST----------------------------------
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         byte[] screen = new byte[16];
         int width = 32;
         printScreen(screen, width);

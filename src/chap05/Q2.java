@@ -30,7 +30,7 @@ public class Q2 {
     }
 
     //TEST----------------------------------
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         println(printBinary(0.0));
         println(printBinary(0.25));
         println(printBinary(0.025));

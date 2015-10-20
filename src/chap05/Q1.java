@@ -32,7 +32,7 @@ public class Q1 {
     }
 
     //TEST----------------------------------
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         int n = toInt("1010011011"), m = toInt("11010");
         int i = 2, j = 6;
         println(toBitString(updateBits(n, m, i, j)));

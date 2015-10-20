@@ -22,7 +22,7 @@ public class Q5 {
     }
 
     //TEST----------------------------------
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         int a = 31, b = 14;
         println(toBitString(a) + " " + toBitString(b));
         println("bitsFlipRequired: " + bitsFlipRequired(a, b));

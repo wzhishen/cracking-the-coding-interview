@@ -11,10 +11,10 @@ public class Q3 {
         static final double EPSILON = 0.0000001;
         double slope;
         double yintercept;
-            public Line(double slope, double yintercept) {
-                this.slope = slope;
-                this.yintercept = yintercept;
-            }
+        public Line(double slope, double yintercept) {
+            this.slope = slope;
+            this.yintercept = yintercept;
+        }
     }
 
     /*

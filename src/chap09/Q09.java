@@ -1,53 +1,77 @@
 package chap09;
 
+import static helpers.Printer.*;
+
 import java.util.ArrayList;
 
+/**
+ * Write an algorithm to print all ways of arranging eight queens
+ * on an 8x8 chess board so that none of them share the same row,
+ * column or diagonal. In this case, "diagonal" means all diagonals,
+ * not just the two that bisect the board.
+ */
 public class Q09 {
-//    Write an algorithm to print all ways of arranging eight queens on an 8x8 chess
-//    board so that none of them share the same row, column or diagonal. In this case,
-//    "diagonal" means all diagonals, not just the two that bisect the board.
-    static final int GRID_SIZE = 8;
-    
-    //Each possible solution (ROW, COL) is stored as int[] columns
-    //where columns[ROW] = COL
-    static void placeQueens(int row, int[] columns, ArrayList<int[]> result) {
-        if (row == GRID_SIZE) {
-            result.add(columns.clone());
+    public static ArrayList<int[]> placeQueens(int gridSize) {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        placeQueens(0, new int[gridSize], result, gridSize);
+        return result;
+    }
+
+    private static void placeQueens(int row, int[] solution, ArrayList<int[]> solutions, int gridSize) {
+        if (row == gridSize) {
+            solutions.add(solution.clone());
+            return;
         }
-        else {
-            for (int col = 0; col < GRID_SIZE; ++col) {//check each col in current row
-                if (checkValid(row, col, columns)) {
-                    columns[row] = col;
-                    placeQueens(row + 1, columns, result);
-                }
+        for (int col = 0; col < gridSize; ++col) {
+            if (canPlace(row, col, solution)) {
+                solution[row] = col;
+                placeQueens(row + 1, solution, solutions, gridSize);
             }
         }
     }
-    
-    static boolean checkValid(int row, int col, int[] columns) {
-        for (int prevRow = 0; prevRow < row; ++prevRow) {//check each previous row
-            if (columns[prevRow] == col) return false;
-            int colDistance = Math.abs(columns[prevRow] - col);
-            if (colDistance == row - prevRow) return false;
+
+    /*
+     * FOLLOW UP
+     * What if you only need to count the number of solutions?
+     */
+    public static int placeQueensNum(int gridSize) {
+        return placeQueensNum(0, new int[gridSize], gridSize);
+    }
+
+    private static int placeQueensNum(int row, int[] solution, int gridSize) {
+        if (row == gridSize) {
+            return 1;
+        }
+        int num = 0;
+        for (int col = 0; col < gridSize; ++col) {
+            if (canPlace(row, col, solution)) {
+                solution[row] = col;
+                num += placeQueensNum(row + 1, solution, gridSize);
+            }
+        }
+        return num;
+    }
+
+    private static boolean canPlace(int row, int col, int[] solution) {
+        for (int prevRow = 0; prevRow < row; ++prevRow) {
+            if (col == solution[prevRow]) return false;
+            if (row - prevRow == Math.abs(col - solution[prevRow])) return false;
         }
         return true;
     }
-    
-    static ArrayList<int[]> placeQueens() {
-        ArrayList<int[]> ret = new ArrayList<int[]>();
-        placeQueens(0, new int[GRID_SIZE], ret);
-        return ret;
-    }
-    
-    //-----------------------------------
-    public static void main(String[]args) {
-        ArrayList<int[]> ret = placeQueens();
-        for (int[] r : ret) {
-            for (int i : r) {
-                System.out.print(i+" ");
-            }
-        System.out.println();
-        }
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        println("Solutions:");
+        printSolution(placeQueens(8));
+        println("\nNumber of solutions:");
+        println(placeQueensNum(8));
     }
 
+    private static void printSolution(ArrayList<int[]> solutions) {
+        for (int[] solution : solutions) {
+            for (int i : solution) print(i + " ");
+            println();
+        }
+    }
 }

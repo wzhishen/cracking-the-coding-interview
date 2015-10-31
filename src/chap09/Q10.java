@@ -87,18 +87,6 @@ public class Q10 {
         public String toString() {
             return "(" + width + ", " + length + ", " + height + ")";
         }
-        public boolean equals(Object o) {
-            if (!(o instanceof Box)) return false;
-            Box that = (Box) o;
-            return width == that.width &&
-                   length == that.length &&
-                   height == that.height;
-        }
-        public int hashCode() {
-            return Integer.hashCode(width) +
-                   Integer.hashCode(length) +
-                   Integer.hashCode(height);
-        }
     }
 
     //TEST----------------------------------

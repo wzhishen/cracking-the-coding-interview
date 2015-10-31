@@ -64,7 +64,8 @@ public class Q02 {
     }
 
     /**
-     * FOLLOW UP
+     * FOLLOW UP 2
+     * What if multiple paths are available?
      * Find all paths.
      */
     public static ArrayList<ArrayList<Point>> findAllPaths(int[][] map) {

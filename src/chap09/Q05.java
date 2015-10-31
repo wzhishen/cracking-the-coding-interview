@@ -1,40 +1,40 @@
 package chap09;
 
+import static helpers.Printer.*;
+
 import java.util.ArrayList;
 
+/**
+ * Write a method to compute all permutations of a string.
+ */
 public class Q05 {
-//    Write a method to compute all permutations of a string.
-    
-//    SOLUTION: We solve for f ( n - 1 ), and then push a(n)
-//    into every spot in each of these strings.
-    
-    static ArrayList<String> getPermutations(String s) {
+    /*
+     * Solve for f(n - 1), and then push a(n) into every spot
+     * in each of these strings.
+     * O(n!) time.
+     */
+    public static ArrayList<String> getPermutations(String s) {
         if (s == null) return null;
-        ArrayList<String> strings = new ArrayList<String>();
-        if (s.isEmpty()) { //XXX: even no need to have s.length()==1 base case
-            strings.add(s);
-            return strings;
+        ArrayList<String> result = new  ArrayList<String>();
+        // Even no need to have s.length()==1 base case
+        if (s.isEmpty()) {
+            result.add(s);
+            return result;
         }
-        ArrayList<String> last = getPermutations(s.substring(1));
-        for (String oldString : last) {
-            for (int i = 0; i <= oldString.length(); ++i) {
-                strings.add(
-                        oldString.substring(0, i) + 
-                        s.charAt(0) + 
-                        oldString.substring(i)
-                        );
+        ArrayList<String> lastStrings = getPermutations(s.substring(1));
+        for (String lastString : lastStrings) {
+            for (int i = 0; i <= lastString.length(); ++i) {
+                result.add(lastString.substring(0, i) +
+                           s.charAt(0) +
+                           lastString.substring(i));
             }
         }
-        return strings;
-    }
-    
-    //------------------------------------------
-    public static void main(String[]args) {
-        ArrayList<String>l=getPermutations("abcde");
-        for (String s:l) {
-            System.out.println(s);
-        }
-        System.out.println("Total: "+l.size());
+        return result;
     }
 
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        ArrayList<String> permutations = getPermutations("ab12");
+        println(permutations);
+    }
 }

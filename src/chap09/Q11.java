@@ -1,119 +1,84 @@
 package chap09;
 
+import static helpers.Printer.*;
+
 import java.util.HashMap;
 
+/**
+ * Given a boolean expression consisting of the symbols (0, 1, &,
+ * /, and ^) and a desired boolean result value result, implement
+ * a function to count the number of ways of parenthesizing the
+ * expression such that it evaluates to result.
+ */
 public class Q11 {
-//    Given a boolean expression consisting of the symbols 0,1, &, /, and ^, and a desired
-//    boolean result value result, implement a function to count the number of ways of
-//    parenthesizing the expression such that it evaluates to result.
-    
-//    SOLUTION: iterate through all operators, dividing the expression into left/right subexpressions;
-//    evaluate left/right subexpressions recursively, according to &, |, ^ rules.
-    
-    static int count(String exp, boolean res, int s, int e) {
-        if (s == e) { //base case
-            if (exp.charAt(s) == '1' && res)
-                return 1;
-            if (exp.charAt(s) == '0' && !res)
-                return 1;
-            return 0;
-        }
-        int cnt = 0;
-        if (res) {
-            for (int i = s+1; i <= e; i+=2) {// i is index of an operator
-                if (exp.charAt(i) == '&') {// & rule, evaluating to true
-                    cnt += count(exp, true, s, i-1) * count(exp, true, i+1, e);
-                }
-                else if (exp.charAt(i) == '|') {// | rule, evaluating to true
-                    cnt += count(exp, true, s, i-1) * count(exp, true, i+1, e) +
-                            count(exp, true, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, true, i+1, e);
-                }
-                else if (exp.charAt(i) == '^') {// ^ rule, evaluating to true
-                    cnt += count(exp, true, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, true, i+1, e);
-                }
-            }
-        }
-        else {
-            for (int i = s+1; i <= e; i+=2) {// i is index of an operator
-                if (exp.charAt(i) == '&') {// & rule, evaluating to false
-                    cnt += count(exp, false, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, true, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, true, i+1, e);
-                }
-                else if (exp.charAt(i) == '|') {// | rule, evaluating to false
-                    cnt += count(exp, false, s, i-1) * count(exp, false, i+1, e);
-                }
-                else if (exp.charAt(i) == '^') {// ^ rule, evaluating to false
-                    cnt += count(exp, true, s, i-1) * count(exp, true, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, false, i+1, e);
-                }
-            }
-        }
-        return cnt;
+    /*
+     * SOLUTION
+     * Iterate through all operators, dividing the expression into
+     * left/right subexpressions. Evaluate left/right subexpressions
+     * recursively, according to &, |, ^ rules.
+     */
+    public static int count(String exp, boolean res) {
+        return countDP(exp, res, 0, exp.length() - 1, new HashMap<String, Integer>());
     }
-    
-    static int count(String exp, boolean res) {
-        return count(exp, res, 0, exp.length()-1);
-    }
-    
-    static int countDP(String exp, boolean res, int s, int e, HashMap<String, Integer> cache) {
-        String key = "" + res + s + e;
-        if (cache.containsKey(key))
-            return cache.get(key);
-        
-        if (s == e) { //base case
-            if (exp.charAt(s) == '1' && res)
-                return 1;
-            if (exp.charAt(s) == '0' && !res)
-                return 1;
-            return 0;
-        }
-        int cnt = 0;
-        if (res) {
-            for (int i = s+1; i <= e; i+=2) {// i is index of an operator
-                if (exp.charAt(i) == '&') {
-                    cnt += count(exp, true, s, i-1) * count(exp, true, i+1, e);
-                }
-                else if (exp.charAt(i) == '|') {
-                    cnt += count(exp, true, s, i-1) * count(exp, true, i+1, e) +
-                            count(exp, true, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, true, i+1, e);
-                }
-                else if (exp.charAt(i) == '^') {
-                    cnt += count(exp, true, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, true, i+1, e);
-                }
+
+    private static int countDP(String expression, boolean result, int start, int end, HashMap<String, Integer> cache) {
+        String key = "" + result + start + end;
+        if (cache.containsKey(key)) return cache.get(key);
+        // Base case: single value evaluation
+        if (start == end) {
+            char operand = expression.charAt(start);
+            if (result) {
+                if (operand == '1') return 1;
+                else if (operand == '0') return 0;
+                else throw new IllegalArgumentException("Invalid operand!");
+            } else {
+                if (operand == '0') return 1;
+                else if (operand == '1') return 0;
+                else throw new IllegalArgumentException("Invalid operand!");
             }
         }
-        else {
-            for (int i = s+1; i <= e; i+=2) {// i is index of an operator
-                if (exp.charAt(i) == '&') {
-                    cnt += count(exp, false, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, true, s, i-1) * count(exp, false, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, true, i+1, e);
+        // Recursive case: subexpression evaluation
+        int cnt = 0;
+        if (result) {
+            for (int i = start + 1; i <= end; i += 2) {
+                char operator = expression.charAt(i);
+                if (operator == '&') {
+                    cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
+                } else if (operator == '|') {
+                    cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);
+                    cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
+                    cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
+                } else if (operator == '^') {
+                    cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);
+                    cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
+                } else {
+                    throw new IllegalArgumentException("Invalid operator!");
                 }
-                else if (exp.charAt(i) == '|') {
-                    cnt += count(exp, false, s, i-1) * count(exp, false, i+1, e);
-                }
-                else if (exp.charAt(i) == '^') {
-                    cnt += count(exp, true, s, i-1) * count(exp, true, i+1, e) +
-                            count(exp, false, s, i-1) * count(exp, false, i+1, e);
+            }
+        } else {
+            for (int i = start + 1; i <= end; i += 2) {
+                char operator = expression.charAt(i);
+                if (operator == '&') {
+                    cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);
+                    cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
+                    cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);
+                } else if (operator == '|') {
+                    cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);
+                } else if (operator == '^') {
+                    cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
+                    cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);
+                } else {
+                    throw new IllegalArgumentException("Invalid operator!");
                 }
             }
         }
         cache.put(key, cnt);
         return cnt;
     }
-    
-    static int countDP(String exp, boolean res, HashMap<String, Integer> cache) {
-        return countDP(exp, res, 0, exp.length()-1, cache);
-    }
-    
-    //------------------------------------
-    public static void main(String[]args) {
-        System.out.println(count("1^0&1|0&1^0&1|0^1|1|0&0",true));
-        System.out.println(countDP("1^0&1|0&1^0&1|0^1|1|0&0",true,new HashMap<String, Integer>()));
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        println(count("1^0|1",true));
+        println(count("1^0&1|0&1^0&1|0^1|1|0&0",true));
     }
 }

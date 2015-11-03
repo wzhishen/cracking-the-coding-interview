@@ -22,6 +22,14 @@ public class Printer {
         println(String.format(s, args));
     }
 
+    public static void printArray(int[] a) {
+        for(int n : a) print(n + " ");
+    }
+
+    public static void printArray(String[] a) {
+        for(String n : a) print(n + " ");
+    }
+
     private static String lineSeparator() {
         return System.lineSeparator();
     }

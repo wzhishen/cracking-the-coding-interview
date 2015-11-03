@@ -1,0 +1,5 @@
+Explain what the following code does: ((n & (n-1)) == 0).
+
+SOLUTION
+
+Checks whether n is a power of 2.

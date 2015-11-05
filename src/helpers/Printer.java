@@ -24,10 +24,12 @@ public class Printer {
 
     public static void printArray(int[] a) {
         for(int n : a) print(n + " ");
+        println();
     }
 
     public static void printArray(String[] a) {
         for(String n : a) print(n + " ");
+        println();
     }
 
     private static String lineSeparator() {

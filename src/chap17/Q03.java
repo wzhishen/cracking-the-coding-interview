@@ -1,34 +1,48 @@
 package chap17;
 
+import static helpers.Printer.*;
+
+/**
+ * Write an algorithm which computes the number of trailing
+ * zeros in n factorial.
+ *
+ * SOLUTION
+ * Simply count the number of 5 factors.
+ * A 10 factor results in a trailing 0. 10 = 2*5, and there
+ * are always more 2s than 5s. So counting 5s is sufficient.
+ */
 public class Q03 {
-//    Write an algorithm which computes the number of trailing zeros in n factorial
-//    
-//    SOLUTION: Simply count the number of 5 factors.
-//              A 10 factor results in a trailing 0. 10=2*5, and there are always 
-//              more 2s than 5s. So counting 5s is sufficient.
-    
-    static int cntFactZeros(int n) {
+    public static int countFactZeros(int n) {
         if (n < 0) return -1;
         int cnt = 0;
-        for (int i = 5; i <= n; ++i)
-            cnt += cntFactorFive(i);
+        for (int i = 5; i <= n; i += 5) {
+            cnt += countFiveFactors(i);
+        }
         return cnt;
     }
-    
-    private static int cntFactorFive(int n) {
+
+    private static int countFiveFactors(int n) {
         int cnt = 0;
-        while (n > 0) {
-            if (n % 5 == 0) ++cnt;
+        while (n % 5 == 0) {
+            ++cnt;
             n /= 5;
         }
         return cnt;
     }
-    
-    //------------------------------------------
-    public static void main(String[]args) {
-        System.out.println(cntFactZeros(5));
-        System.out.println(cntFactZeros(10));
-        System.out.println(cntFactZeros(15));
+
+    public static int countFactZeros2(int n) {
+        if (n < 0) return -1;
+        int cnt = 0;
+        for (int i = 5; n / i > 0; i *= 5) {
+            cnt += n / i;
+        }
+        return cnt;
     }
 
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        println(countFactZeros(5) + " " + countFactZeros2(5));
+        println(countFactZeros(26) + " " + countFactZeros2(26));
+        println(countFactZeros(3261) + " " + countFactZeros2(3261));
+    }
 }

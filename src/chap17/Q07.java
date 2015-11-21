@@ -1,39 +1,45 @@
 package chap17;
 
+import static helpers.Printer.*;
+
+/**
+ * Given any integer, print an English phrase that describes
+ * the integer (e.g., "One Thousand, Two Hundred Thirty Four").
+ */
 public class Q07 {
-//    Given any integer, print an English phrase that describes the integer (e.g., "One
-//    Thousand, Two Hundred Thirty Four").
-    
-    static String[] digits = {"One", "Two", "Three","Four", "Five", "Six", "Seven", "Eight", "Nine"};
-    static String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-    static String[] tens = {"", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
-    static String[] bigs = {"", "Thousand", "Million", "Billion"};
-    
-    static String intToString(int n) {
+    private static String[] digits = {"One", "Two", "Three","Four", "Five", "Six", "Seven", "Eight", "Nine"};
+    private static String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    private static String[] tens = {"Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+    private static String[] bigs = {"", "Thousand", "Million", "Billion"};
+
+    public static String intToString(int n) {
         if (n == 0) return "Zero";
         if (n < 0) return "Negative " + intToString(-n);
         String ret = "";
-        int cnt = 0;
+        int i = 0;
         while (n > 0) {
-            ret = convertHundred(n % 1000) + bigs[cnt] + " " + ret;
+            String hundredSegment = convertHundred(n % 1000);
+            if (!hundredSegment.isEmpty()) {
+                ret = hundredSegment + bigs[i] + " " + ret;
+            }
             n /= 1000;
-            ++cnt;
+            ++i;
         }
         return ret;
     }
-    
-    static private String convertHundred(int n) {
+
+    private static String convertHundred(int n) {
         String ret = "";
         if (n >= 100) {
             ret += digits[n / 100 - 1] + " Hundred ";
             n %= 100;
         }
         if (n >= 20) {
-            ret += tens[n / 10 - 1] + " ";
+            ret += tens[n / 10 - 2] + " ";
             n %= 10;
         }
         if (n >= 10) {
-            ret += teens[n - 10] + " ";
+            ret += teens[n % 10] + " ";
             n = 0;
         }
         if (n > 0) {
@@ -41,10 +47,14 @@ public class Q07 {
         }
         return ret;
     }
-    
-    //---------------------------------------
-    public static void main(String[]args) {
-        System.out.println(intToString(21));
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        println(intToString(21));
+        println(intToString(121));
+        println(intToString(789702501));
+        println(intToString(-1000000));
+        println(intToString(-1000000200));
     }
 
 }

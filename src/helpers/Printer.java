@@ -23,12 +23,20 @@ public class Printer {
     }
 
     public static void printArray(int[] a) {
-        for(int n : a) print(n + " ");
+        if (a == null) {
+            print(null);
+        } else {
+            for(int n : a) print(n + " ");
+        }
         println();
     }
 
     public static void printArray(String[] a) {
-        for(String n : a) print(n + " ");
+        if (a == null) {
+            print(null);
+        } else {
+            for(String n : a) print(n + " ");
+        }
         println();
     }
 

@@ -13,7 +13,6 @@ public class Q04_2 {
         return n * cond + negate(n) * flip(cond);
     }
 
-    // Will overflow on Integer.MIN_VALUE
     public static int negate(int n) {
         return (~n) + 1;
     }

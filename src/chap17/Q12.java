@@ -1,56 +1,64 @@
 package chap17;
 
+import static helpers.Printer.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Design an algorithm to find all pairs of integers within an
+ * array which sum to a specified value.
+ *
+ * The array only contains unique values.
+ */
 public class Q12 {
-//    Design an algorithm to find all pairs of integers within an array which sum to a
-//    specified value.
-    
-    //have array sorted; have two pointers, move them inward
-    //O(n log n) time
-    ArrayList<ArrayList<Integer>> findPairSum(int[] a, int sum) {
+    // O(n) time, O(n) space
+    public static ArrayList<ArrayList<Integer>> twoSum(int[] a, int sum) {
         if (a == null) return null;
-        ArrayList<ArrayList<Integer>> ret = new  ArrayList<ArrayList<Integer>>();
-        Arrays.sort(a);
-        int head = 0;
-        int tail = a.length - 1;
-        while (head < tail) {
-            if (a[head] + a[tail] == sum) {
-                ArrayList<Integer> pair = new ArrayList<Integer>();
-                pair.add(a[head]); pair.add(a[tail]);
-                ret.add(pair);
-                ++head;
-                --tail;
-            }
-            else if (a[head] + a[tail] < sum) {
-                ++head;
-            }
-            else {
-                --tail;
-            }
-        }
-        return ret;
-    }
-    
-    //use a hashtable
-    //O(n) time, extra O(n) space
-    ArrayList<ArrayList<Integer>> findPairSum2(int[] a, int sum) {
-        if (a == null) return null;
-        ArrayList<ArrayList<Integer>> ret = new  ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
         for (int i = 0; i < a.length; ++i) {
-            if (map.containsKey(a[i])) {
+            int comp = sum - a[i];
+            if (map.containsKey(comp)) {
                 ArrayList<Integer> pair = new ArrayList<Integer>();
-                pair.add(a[map.get(a[i])]); pair.add(a[i]);
-                ret.add(pair);
+                pair.add(a[map.get(comp)]);
+                pair.add(a[i]);
+                result.add(pair);
             }
-            else {
-                map.put(sum - a[i], i);
-            }
+            map.put(a[i], i);
         }
-        return ret;
+        return result;
     }
 
+    // O(n log n) time, O(log n) space for sorting
+    public static ArrayList<ArrayList<Integer>> twoSum2(int[] a, int sum) {
+        if (a == null) return null;
+        Arrays.sort(a);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+
+        int left = 0, right = a.length - 1;
+        while (left < right) {
+            if (a[left] + a[right] == sum) {
+                ArrayList<Integer> pair = new ArrayList<Integer>();
+                pair.add(a[left]);
+                pair.add(a[right]);
+                result.add(pair);
+                ++left;
+                --right;
+            } else if (a[left] + a[right] < sum) {
+                ++left;
+            } else {
+                --right;
+            }
+        }
+        return result;
+    }
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        println(twoSum(new int[] {2, 5, 1, -1, 10, 7, 17, -3, -5}, 12));
+        println(twoSum2(new int[] {2, 5, 1, -1, 10, 7, 17, -3, -5}, 12));
+    }
 }

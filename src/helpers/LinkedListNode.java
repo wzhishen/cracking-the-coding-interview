@@ -1,5 +1,7 @@
 package helpers;
 
+import static helpers.Printer.*;
+
 public class LinkedListNode {
     public int data;
     public LinkedListNode next;
@@ -24,14 +26,14 @@ public class LinkedListNode {
     public static void printList(LinkedListNode n) {
         int i = 0;
         while (n != null) {
-            System.out.print(n.data + "->");
+            print(n.data + "->");
             n = n.next;
             if (++i > MAX_PRINT_LENGTH) {
-                System.out.println("[MAX_LEN]");
+                println("[MAX_LEN]");
                 return;
             }
         }
-        System.out.println("NULL");
+        println("NULL");
     }
 
     public String toString() {

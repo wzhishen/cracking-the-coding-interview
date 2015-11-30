@@ -1,96 +1,101 @@
 package chap18;
 
+import static helpers.Printer.*;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/**
+ * You have a large text file containing words. Given any two words,
+ * find the shortest distance (in terms of number of words) between
+ * them in the file. If the operation will be repeated many times
+ * for the same file (but different pairs of words), can you
+ * optimize your solution?
+ */
 public class Q05 {
-//    You have a large text file containing words. Given any two words, find the shortest
-//    distance (in terms of number of words) between them in the file. If the operation
-//    will be repeated many times for the same file (but different pairs of words), can you
-//    optimize your solution?
-    
-    int findShortestPath(String[] text, String word1, String word2) {
-        if (text == null || word1 == null || word2 == null) return -1;
-        int lastPosWord1 = -1;
-        int lastPosWord2 = -1;
-        int min = Integer.MAX_VALUE;
+    public static int findShortextPath(String[] text, String word1, String word2) {
+        if (text == null || word1 == null || word2 == null ||
+            word1.isEmpty() || word2.isEmpty())
+            return -1;
+        int lastPos1 = -1, lastPos2 = -1;
+        int minDistance = Integer.MAX_VALUE;
         for (int i = 0; i < text.length; ++i) {
             if (text[i].equals(word1)) {
-                lastPosWord1 = i;
-            }
-            else if (text[i].equals(word2)) {
-                lastPosWord2 = i;
-            }
-            if (lastPosWord1 != -1 && lastPosWord2 != -1) {
-                int distance = Math.abs(lastPosWord1 - lastPosWord2);
-                if (distance < min) {
-                    min = distance;
+                lastPos1 = i;
+                if (lastPos2 != -1) {
+                    minDistance = Math.min(minDistance, lastPos1 - lastPos2);
                 }
-            }
-        }
-        return min;
-    }
-    
-    /* if repeated operations needed */
-    
-    HashMap<String, ArrayList<Integer>> buildMap (String[] text) {//word -> list of positions
-        HashMap<String, ArrayList<Integer>> map = new HashMap<String, ArrayList<Integer>>();
-        for (int i = 0; i < text.length; ++i) {
-            if (map.containsKey(text[i])) {
-                map.get(text[i]).add(i);
-            }
-            else {
-                ArrayList<Integer> pos = new ArrayList<Integer>();
-                pos.add(i);
-                map.put(text[i], pos);
-            }
-        }
-        return map;
-    }
-    
-    int findShortestPath(HashMap<String, ArrayList<Integer>> map, String word1, String word2) {
-        if (word1 == null || word2 == null) return -1;
-        if (!map.containsKey(word1) || !map.containsKey(word2)) return -1;
-        
-        // merge result lists
-        ArrayList<Position> res = new ArrayList<Position>();
-        ArrayList<Integer> l1 = map.get(word1);
-        ArrayList<Integer> l2 = map.get(word2);
-        int h1 = 0;
-        int h2 = 0;
-        while (h1 < l1.size() && h2 < l2.size()) {
-            if (l1.get(h1) < l2.get(h2)) {
-                res.add(new Position(1, l1.get(h1)));
-                ++h1;
-            }
-            else {
-                res.add(new Position(2, l2.get(h2)));
-                ++h2;
-            }
-        }
-        if (h1 < l1.size()) {
-            for (int i = h1; i < l1.size(); ++i ) {
-                res.add(new Position(1, l1.get(h1)));
-            }
-        }
-        else if (h2 < l2.size()) {
-            for (int i = h2; i < l2.size(); ++i ) {
-                res.add(new Position(2, l2.get(h2)));
-            }
-        }
-        
-        // calculate shortest distance
-        int minDistance = Integer.MAX_VALUE;
-        for (int i = 0; i < res.size() - 1; ++i) {
-            if (res.get(i).listNum != res.get(i+1).listNum) {
-                int distance = Math.abs(res.get(i).pos - res.get(i+1).pos);
-                if (distance < minDistance) minDistance = distance;
+            } else {
+                if (text[i].equals(word2)) {
+                    lastPos2 = i;
+                    if (lastPos1 != -1) {
+                        minDistance = Math.min(minDistance, lastPos2 - lastPos1);
+                    }
+                }
             }
         }
         return minDistance;
     }
-    
-    class Position {
+
+    public static HashMap<String, ArrayList<Integer>> preprocess(String[] text) {
+        HashMap<String, ArrayList<Integer>> map = new HashMap<String, ArrayList<Integer>>();
+        if (text == null) return map;
+        for (int i = 0; i < text.length; ++i) {
+            String word = text[i];
+            ArrayList<Integer> indexes = new ArrayList<Integer>();
+            if (map.containsKey(word)) {
+                indexes = map.get(word);
+            }
+            indexes.add(i);
+            map.put(word, indexes);
+        }
+        return map;
+    }
+
+    public static int findShortextPath2(HashMap<String, ArrayList<Integer>> map, String word1, String word2) {
+        if (map == null || word1 == null || word2 == null ||
+            word1.isEmpty() || word2.isEmpty())
+            return -1;
+        ArrayList<Integer> list1 = map.get(word1), list2 = map.get(word2);
+        int minDistance = Integer.MAX_VALUE;
+        if (list1 == null || list2 == null) return minDistance;
+        // Merge result lists
+        ArrayList<Position> list = new ArrayList<Position>();
+        int p1 = 0, p2 = 0;
+        while (p1 < list1.size() && p2 < list2.size()) {
+            int pos1 = list1.get(p1);
+            int pos2 = list2.get(p2);
+            if (pos1 < pos2) {
+                list.add(new Position(1, pos1));
+                ++p1;
+            } else {
+                list.add(new Position(2, pos2));
+                ++p2;
+            }
+        }
+        while (p1 < list1.size()) {
+            list.add(new Position(1, list1.get(p1)));
+            ++p1;
+        }
+        while (p2 < list2.size()) {
+            list.add(new Position(2, list2.get(p2)));
+            ++p2;
+        }
+        // Calculate shortest distance
+        for (int i = 0; i < list.size() - 1; ++i) {
+            Position curr = list.get(i);
+            Position next = list.get(i + 1);
+            if (curr.listNum != next.listNum) {
+                int distance = next.pos - curr.pos;
+                if (distance < minDistance) {
+                    minDistance = distance;
+                }
+            }
+        }
+        return minDistance;
+    }
+
+    private static class Position {
         int listNum;
         int pos;
         public Position(int l, int p) {
@@ -99,4 +104,16 @@ public class Q05 {
         }
     }
 
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        String book = "Java String array FAQ: Can you share some Java array examples," +
+        " specifically some String array examples, as well as the Java 5 for loop syntax?";
+        String[] text = book.split("\\s+");
+        HashMap<String, ArrayList<Integer>> map = preprocess(text);
+
+        println(findShortextPath(text, "Java", "as"));
+        println(findShortextPath(text, "FAQ:", "examples,"));
+        println(findShortextPath2(map, "Java", "as"));
+        println(findShortextPath2(map, "FAQ:", "examples,"));
+    }
 }

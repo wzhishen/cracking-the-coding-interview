@@ -12,19 +12,25 @@ import java.util.HashMap;
  * made of other words in the list.
  * Returns all possible occurrences.
  *
+ * FOLLOW UP
+ * What if each single word can only be used once to construct
+ * other words?
+ *
  * EXAMPLE
  * Input: "cat", "banana", "dog", "nana", "my", "walk", "walker",
  *        "baby", "dogwalkers", "s", "babymybaby"
- * Output: ["dogwalkers", "babymybaby"]
+ * Output: ["dogwalkers"]
  */
-public class Q07 {
+public class Q07_2 {
     public static ArrayList<String> findLongestWord(String[] words) {
         if (words == null) return null;
         sortWordsByLength(words);
         ArrayList<String> result = new ArrayList<String>();
-        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
         for (String word : words) {
-            map.put(word, true);
+            int cnt = 0;
+            if (map.containsKey(word)) cnt = map.get(word);
+            map.put(word, ++cnt);
         }
         int maxLen = 0;
         for (String word : words) {
@@ -45,20 +51,22 @@ public class Q07 {
         });
     }
 
-    private static boolean isValidWord(String word, boolean isOriginal, HashMap<String, Boolean> map) {
-        if (!isOriginal && map.containsKey(word)) {
-            return map.get(word);
+    private static boolean isValidWord(String word, boolean isOriginal, HashMap<String, Integer> map) {
+        if (!isOriginal && map.containsKey(word) && map.get(word) > 0) {
+            map.put(word, map.get(word) - 1);
+            return true;
         }
         for (int i = 1; i < word.length(); ++i) {
             String left = word.substring(0, i);
             String right = word.substring(i);
-            if (map.containsKey(left) &&
-                map.get(left) == true &&
-                isValidWord(right, false, map)) {
-                return true;
+            if (map.containsKey(left) && map.get(left) > 0) {
+                map.put(left, map.get(left) - 1);
+                if (isValidWord(right, false, map)) {
+                    return true;
+                }
+                map.put(left, map.get(left) + 1);
             }
         }
-        map.put(word, false);
         return false;
     }
 

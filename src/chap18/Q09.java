@@ -1,60 +1,65 @@
 package chap18;
 
+import static helpers.Printer.*;
+
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+/**
+ * Numbers are randomly generated and passed to a method. Write a
+ * program to find and maintain the median value as new values are\
+ * generated.
+ *
+ * SOLUTION
+ * Use a max heap and a min heap to maintain the stream, where
+ * maxheap.size() == minheap.size() or
+ * maxheap.size() - 1 == minheap.size()
+ * always holds.
+ */
 public class Q09 {
-//    Numbers are randomly generated and passed to a method. Write a program to
-//    find and maintain the median value as new values are generated.
-//    
-//    SOLUTION:
-//    Use a max heap, a min heap, 
-//    where maxheap.size() == minheap.size() or
-//          maxheap.size()-1 == minheap.size() always holds.
-    
-    //maxheap contains all SMALL elements
-    static PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(50, Collections.reverseOrder());
-    //minheap contains all LARGE elements
-    static PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(50);
-    
-    static void addNum(int n) {
-        if (maxHeap.isEmpty()) {
-            maxHeap.offer(n);
-        }
-        if (maxHeap.size() == minHeap.size()) {
-            if (n < minHeap.peek()) {
+    private static final int N = 100;
+    // a max heap that contains all SMALL elements
+    private static PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(N, Collections.reverseOrder());
+    // a min heap that contains all LARGE elements
+    private static PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(N);
+
+    // O(log n) time, O(n) space
+    public static void track(int n) {
+        if (maxHeap.isEmpty() || n <= maxHeap.peek()) {
+            if (maxHeap.size() == minHeap.size()) {
                 maxHeap.offer(n);
-            }
-            else {
-                maxHeap.offer(minHeap.poll());
-                minHeap.offer(n);
-            }
-        }
-        else {
-            if (n > maxHeap.peek()) {
-                minHeap.offer(n);
-            }
-            else {
+            } else {
                 minHeap.offer(maxHeap.poll());
                 maxHeap.offer(n);
             }
+        } else {
+            if (maxHeap.size() == minHeap.size()) {
+                maxHeap.offer(minHeap.poll());
+                minHeap.offer(n);
+            } else {
+                minHeap.offer(n);
+            }
         }
     }
-    
-    static int getMedian() {
-        if (maxHeap.isEmpty()) return 0;
-        else if (maxHeap.size() == minHeap.size()) {
-            return (maxHeap.peek() + minHeap.peek()) / 2;
-        }
-        else {
+
+    // O(1) time
+    public static double getMedian() {
+        if (maxHeap.size() == minHeap.size()) {
+            return (maxHeap.peek() + minHeap.peek()) / 2.0;
+        } else {
             return maxHeap.peek();
         }
     }
-    
-    //-------------------------------------
-    public static void main(String[]args) {
-        addNum(3);addNum(2);addNum(4);addNum(5);addNum(1);
-        System.out.println(getMedian());
-    }
 
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        for (int i = 0; i < 5; ++i) {
+            track(i);
+            println(getMedian());
+        }
+        for (int i = 100; i < 150; i += 5) {
+            track(i);
+            println(getMedian());
+        }
+    }
 }

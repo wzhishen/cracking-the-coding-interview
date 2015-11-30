@@ -1,61 +1,128 @@
 package chap18;
 
+import static helpers.Printer.*;
+
+import java.util.ArrayList;
+
+/**
+ * Imagine you have a square matrix, where each cell (pixel) is either
+ * black or white Design an algorithm to find the maximum subsquare
+ * such that all four borders are filled with black pixels.
+ * (Suppose black is 1, white is 0 in the matrix.)
+ */
 public class Q11 {
-//    Imagine you have a square matrix, where each cell (pixel) is either black or white
-//    Design an algorithm to find the maximum subsquare such that all four borders
-//    are filled with black pixels.
-//    
-//    Suppose black is 1, white is 0.
-    
-    //brute force: O(n^4) time.
-    //Preprocessing matrix can make isValid take constant time,
-    //reducing total runtime to O(n^3).
-    static Result findLargestSubsquare(int[][] matrix) {
-        for (int len = matrix.length; len >= 2; --len) {
-            Result res = findSubsquare(matrix, len);
-            if (res != null) return res;
-        }
-        return null;
-    }
-    
-    static Result findSubsquare(int[][] matrix, int length) {
-        int cnt = matrix.length - length + 1;
-        for (int i = 0; i < cnt; ++i) {
-            for (int j = 0; j < cnt; ++j) {
-                if (isValid(matrix, i, j, length)) {
-                    return new Result(i, j, length);
+    // Brute force: O(n^4) time, O(1) space, n is the length of matrix.
+    public static ArrayList<Square> findLargestSubsquare(int[][] matrix) {
+        ArrayList<Square> result = new ArrayList<Square>();
+        for (int size = matrix.length; size >= 1; --size) {
+            for (int i = 0; i < matrix.length - size + 1; ++i) {
+                for (int j = 0; j < matrix[0].length - size + 1; ++j) {
+                    if (isValid(matrix, i, j, size)) {
+                        result.add(new Square(i, j, size));
+                    }
                 }
             }
+            if (!result.isEmpty()) break;
         }
-        return null;
+        return result;
     }
-    
-    static boolean isValid(int[][] m, int r, int c, int l) {
-        for (int n = 0; n < l/*XXX*/; ++n) {
-            //check top and bottom rows
-            if (m[r][c+n] == 0 || m[r+l-1][c+n] == 0)
-                return false;
-            //check left and right columns
-            if (m[r+n][c] == 0 || m[r+n][c+l-1] == 0)
-                return false;
+
+    private static boolean isValid(int[][] matrix, int row, int col, int size) {
+        for (int i = row; i < row + size; ++i) {
+            if (matrix[i][col] == 0) return false;
+            if (matrix[i][col + size - 1] == 0) return false;
+        }
+        for (int j = col; j < col + size; ++j) {
+            if(matrix[row][j] == 0) return false;
+            if(matrix[row + size - 1][j] == 0) return false;
         }
         return true;
     }
-    
-    static class Result {
-        int col; int row; int length;
-        public Result(int r, int c, int l) {row=r;col=c;length=l;}
-    }
-    
-    //--------------------------------------
-    public static void main(String[]args) {
-        int[][]m = {
-                {1,0,1,1},
-                {1,0,1,1},
-                {1,1,0,1},
-                {1,1,1,1}};
-        Result r = findLargestSubsquare(m);
-        System.out.println(r.row+" "+r.col+" "+r.length);
+
+    // Preprocess matrix: O(n^3) time, O(n^2) space, n is the length of matrix.
+    public static ArrayList<Square> findLargestSubsquare2(int[][] matrix) {
+        Cell[][] cells = preprocess(matrix);
+        ArrayList<Square> result = new ArrayList<Square>();
+        for (int size = cells.length; size >= 1; --size) {
+            for (int i = 0; i < cells.length - size + 1; ++i) {
+                for (int j = 0; j < cells[0].length - size + 1; ++j) {
+                    if (isValid(cells, i, j, size)) {
+                        result.add(new Square(i, j, size));
+                    }
+                }
+            }
+            if (!result.isEmpty()) break;
+        }
+        return result;
     }
 
+    public static Cell[][] preprocess(int[][] matrix) {
+        int size = matrix.length;
+        Cell[][] cells = new Cell[size][size];
+
+        int n = matrix[size - 1][size - 1];
+        cells[size - 1][size - 1] = new Cell(n, n);
+
+        for (int i = size - 2; i >= 0; --i) {
+            n = matrix[size - 1][i];
+            int right = n + cells[size - 1][i + 1].availableRight;
+            cells[size - 1][i] = new Cell(n, right);
+
+            n = matrix[i][size - 1];
+            int below = n + cells[i + 1][size - 1].availableBelow;
+            cells[i][size - 1] = new Cell(below, n);
+        }
+
+        for (int i = size - 2; i >= 0; --i) {
+            for (int j = size - 2; j >= 0; --j) {
+                n = matrix[i][j];
+                int right = n + cells[i][j + 1].availableRight;
+                int below = n + cells[i + 1][j].availableBelow;
+                cells[i][j] = new Cell(below, right);
+            }
+        }
+        return cells;
+    }
+
+    private static boolean isValid(Cell[][] matrix, int row, int col, int size) {
+        Cell topLeft = matrix[row][col];
+        Cell topRight = matrix[row][col + size - 1];
+        Cell bottomLeft = matrix[row + size - 1][col];
+        Cell bottomRight = matrix[row + size - 1][col + size - 1];
+        return (topLeft.availableBelow - bottomLeft.availableBelow + 1 == size) &&
+               (topRight.availableBelow - bottomRight.availableBelow + 1 == size) &&
+               (topLeft.availableRight - topRight.availableRight + 1 == size) &&
+               (bottomLeft.availableRight - bottomRight.availableRight + 1 == size);
+    }
+
+    private static class Square {
+        int row, col, size;
+        public Square(int r, int c, int s) {
+            row = r;
+            col = c;
+            size = s;
+        }
+        public String toString() {
+            return "(" + row + ":" + col + ":" + size + ")";
+        }
+    }
+
+    private static class Cell {
+        int availableBelow, availableRight;
+        public Cell(int b, int r) {
+            availableBelow = b;
+            availableRight = r;
+        }
+    }
+
+    //TEST----------------------------------
+    public static void main(String[] args) {
+        int[][] matrix = {{1,0,1,1,1},
+                          {1,1,1,0,1},
+                          {1,1,1,1,1},
+                          {1,1,1,1,0},
+                          {1,0,1,0,1}};
+        println(findLargestSubsquare(matrix));
+        println(findLargestSubsquare2(matrix));
+    }
 }

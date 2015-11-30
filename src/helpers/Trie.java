@@ -65,12 +65,23 @@ public class Trie {
         addWord(root, null);
         addWord(root, "dogman");
         addWord(root, "do");
+        addWord(root, "d");
         addWord(root, "apple");
         addWord(root, "application");
         addWord(root, "algorithm");
-        println(getWords(root, "ap"));
-        println(getWords(root, "d"));
-        println(getWords(root, "none"));
-        println(getAllWords(root));
+        printWords(root, "ap");
+        printWords(root, "d");
+        printWords(root, "none");
+        printAllWords(root);
+    }
+
+    private static void printWords(TrieNode n, String prefix) {
+        printf("getWords for %s: ", prefix);
+        println(getWords(n, prefix));
+    }
+
+    private static void printAllWords(TrieNode n) {
+        printf("getAllWords: ");
+        println(getAllWords(n));
     }
 }

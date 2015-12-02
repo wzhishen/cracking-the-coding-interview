@@ -37,6 +37,28 @@ public class Trie {
         return getWords(n, "");
     }
 
+    public static boolean hasPrefix(TrieNode n, String prefix) {
+        return has(n, prefix, false);
+    }
+
+    public static boolean hasWord(TrieNode n, String prefix) {
+        return has(n, prefix, true);
+    }
+
+    private static boolean has(TrieNode n, String prefix, boolean checkHasWord) {
+        if (prefix == null) return false;
+        char[] characters = prefix.toCharArray();
+        for (char ch: characters) {
+            if (!n.children.containsKey(ch)) return false;
+            n = n.children.get(ch);
+        }
+        if (checkHasWord) {
+            return n.isWord;
+        } else {
+            return true;
+        }
+    }
+
     public static ArrayList<String> getWords(TrieNode n, String prefix) {
         if (prefix == null) return null;
         ArrayList<String> result = new ArrayList<String>();

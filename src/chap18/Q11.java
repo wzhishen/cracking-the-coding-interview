@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 /**
  * Imagine you have a square matrix, where each cell (pixel) is either
- * black or white Design an algorithm to find the maximum subsquare
+ * black or white. Design an algorithm to find the maximum subsquare(s)
  * such that all four borders are filled with black pixels.
  * (Suppose black is 1, white is 0 in the matrix.)
  */
 public class Q11 {
-    // Brute force: O(n^4) time, O(1) space, n is the length of matrix.
+    // Brute force: O(n^4) time, O(1) space, n is the length of side of matrix.
     public static ArrayList<Square> findLargestSubsquare(int[][] matrix) {
+        if (matrix == null) return null;
         ArrayList<Square> result = new ArrayList<Square>();
         for (int size = matrix.length; size >= 1; --size) {
             for (int i = 0; i < matrix.length - size + 1; ++i) {
@@ -39,8 +40,9 @@ public class Q11 {
         return true;
     }
 
-    // Preprocess matrix: O(n^3) time, O(n^2) space, n is the length of matrix.
+    // Preprocess matrix: O(n^3) time, O(n^2) space, n is the length of side of matrix.
     public static ArrayList<Square> findLargestSubsquare2(int[][] matrix) {
+        if (matrix == null) return null;
         Cell[][] cells = preprocess(matrix);
         ArrayList<Square> result = new ArrayList<Square>();
         for (int size = cells.length; size >= 1; --size) {
@@ -103,7 +105,7 @@ public class Q11 {
             size = s;
         }
         public String toString() {
-            return "(" + row + ":" + col + ":" + size + ")";
+            return "(" + row + "," + col + "," + size + ")";
         }
     }
 

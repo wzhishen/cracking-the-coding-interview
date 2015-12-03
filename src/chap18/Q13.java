@@ -65,7 +65,7 @@ public class Q13 {
                 return null;
             }
         }
-        if (isInvalid(trie, rectangle)) {
+        if (!isPartialRectangle(trie, rectangle)) {
             return null;
         }
         for (String word : cadidateWords) {
@@ -78,23 +78,25 @@ public class Q13 {
     }
 
     private static boolean isCompleteRectangle(TrieNode trie, Rectangle rectangle) {
+        return isValid(trie, rectangle, true);
+    }
+
+    private static boolean isPartialRectangle(TrieNode trie, Rectangle rectangle) {
+        return isValid(trie, rectangle, false);
+    }
+
+    private static boolean isValid(TrieNode trie, Rectangle rectangle, boolean checkHasWord) {
         int length = rectangle.getLength();
         if (trie == null) return false;
         for (int i = 0; i < length; ++i) {
             String columnWord = rectangle.getWordByCol(i);
-            if (!Trie.hasWord(trie, columnWord)) return false;
+            if (checkHasWord) {
+                if (!Trie.hasWord(trie, columnWord)) return false;
+            } else {
+                if (!Trie.hasPrefix(trie, columnWord)) return false;
+            }
         }
         return true;
-    }
-
-    private static boolean isInvalid(TrieNode trie, Rectangle rectangle) {
-        int length = rectangle.getLength();
-        if (trie == null) return true;
-        for (int i = 0; i < length; ++i) {
-            String columnWord = rectangle.getWordByCol(i);
-            if (!Trie.hasPrefix(trie, columnWord)) return true;
-        }
-        return false;
     }
 
     private static ArrayList<String>[] createWordGroups(String[] words) {

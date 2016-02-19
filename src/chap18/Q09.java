@@ -25,19 +25,19 @@ public class Q09 {
 
     // O(log n) time, O(n) space
     public static void track(int n) {
-        if (maxHeap.isEmpty() || n <= maxHeap.peek()) {
-            if (maxHeap.size() == minHeap.size()) {
+        if (maxHeap.size() == minHeap.size()) {
+            if (maxHeap.isEmpty() || n < minHeap.peek()) {
                 maxHeap.offer(n);
+            } else {
+                maxHeap.offer(minHeap.poll());
+                minHeap.offer(n);
+            }
+        } else {
+            if (n > maxHeap.peek()) {
+                minHeap.offer(n);
             } else {
                 minHeap.offer(maxHeap.poll());
                 maxHeap.offer(n);
-            }
-        } else {
-            if (maxHeap.size() == minHeap.size()) {
-                maxHeap.offer(minHeap.poll());
-                minHeap.offer(n);
-            } else {
-                minHeap.offer(n);
             }
         }
     }

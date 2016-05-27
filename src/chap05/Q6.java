@@ -10,7 +10,7 @@ import static helpers.Bit.*;
  */
 public class Q6 {
     public static int swapOddEvenBits(int n) {
-        //XXX: 
+        // Key: 
         // 0xAAAAAAAA -> mask: 10101010...
         // 0x55555555 -> mask: 01010101...
         // for 32-bit integers

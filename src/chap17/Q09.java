@@ -19,18 +19,14 @@ public class Q09 {
         for (String word : words) {
             if (word == null) continue;
             word = word.toLowerCase();
-            int count = 0;
-            if (map.containsKey(word)) count = map.get(word);
-            map.put(word, ++count);
+            map.put(word, map.getOrDefault(word, 0) + 1);
         }
         return map;
     }
 
     public static int getFrequency(String word) {
         if (word == null || word.trim().isEmpty()) return -1;
-        word = word.toLowerCase();
-        if (!map.containsKey(word)) return 0;
-        return map.get(word);
+        return map.getOrDefault(word.toLowerCase(), 0);
     }
 
     //TEST----------------------------------

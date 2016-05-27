@@ -52,13 +52,4 @@ public class Q6 {
         rotateInPlace(a);
         printArray(a);
     }
-
-    private static void printArray(int[][] a) {
-        for (int[] row : a) {
-            for (int col : row) {
-                print(col + " ");
-            }
-            println();
-        }
-    }
 }

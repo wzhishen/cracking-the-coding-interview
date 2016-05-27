@@ -18,6 +18,7 @@ public class Q6 {
             array = (T[]) new Object[size];
             head = 0;
         }
+        /* n > 0: rotate left; n < 0: rotate right */
         public void rotate(int n) {
             head = shift(n);
         }
@@ -32,8 +33,9 @@ public class Q6 {
             array[shift(index)] = value;
         }
         private int shift(int index) {
-            while (index < 0) index += array.length;
-            return (head + index) % array.length;
+            int i = (head + index) % array.length;
+            if (i < 0) i += array.length;
+            return i;
         }
         @Override
         public Iterator<T> iterator() {
@@ -60,7 +62,7 @@ public class Q6 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        CircularArray<Integer> array = new CircularArray<Integer>(5);
+        CircularArray<Integer> array = new CircularArray<Integer>(8);
         array.set(0, 10);
         array.set(1, 20);
         array.set(3, 40);

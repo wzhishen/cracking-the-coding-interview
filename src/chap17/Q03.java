@@ -33,8 +33,9 @@ public class Q03 {
     public static int countFactZeros2(int n) {
         if (n < 0) return -1;
         int cnt = 0;
-        for (int i = 5; n / i > 0; i *= 5) {
-            cnt += n / i;
+        while (n > 0) {
+            cnt += n / 5;
+            n /= 5;
         }
         return cnt;
     }
@@ -42,7 +43,7 @@ public class Q03 {
     //TEST----------------------------------
     public static void main(String[] args) {
         println(countFactZeros(5) + " " + countFactZeros2(5));
-        println(countFactZeros(26) + " " + countFactZeros2(26));
-        println(countFactZeros(3261) + " " + countFactZeros2(3261));
+        println(countFactZeros(260) + " " + countFactZeros2(260));
+        println(countFactZeros(1808548329) + " " + countFactZeros2(1808548329));
     }
 }

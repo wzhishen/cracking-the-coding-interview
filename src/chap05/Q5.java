@@ -15,15 +15,13 @@ public class Q5 {
     public static int bitsFlipRequired(int a, int b) {
         int cnt = 0;
         int diff = a ^ b;
-        for (int i = diff; i > 0; i >>= 1) {
-            cnt += i & 1;
-        }
+        for (int i = diff; i > 0; i &= i - 1) ++cnt;
         return cnt;
     }
 
     //TEST----------------------------------
     public static void main(String[] args) {
-        int a = 31, b = 14;
+        int a = 101, b = 140;
         println(toBitString(a) + " " + toBitString(b));
         println("bitsFlipRequired: " + bitsFlipRequired(a, b));
     }

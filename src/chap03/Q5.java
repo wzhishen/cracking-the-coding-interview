@@ -11,6 +11,7 @@ public class Q5 {
     private static final int LOAD_FACTOR = 10;
     private Stack<Integer> head = new Stack<Integer>();
     private Stack<Integer> tail = new Stack<Integer>();
+
     public void enqueue(int item) {
         rebalance();
         tail.push(item);

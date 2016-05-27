@@ -10,7 +10,7 @@ import java.util.Stack;
  * element? Push, pop and min should all operate in O(1) time.
  */
 @SuppressWarnings("serial")
-public class Q2 extends Stack<Integer> {
+public class Q2 /* MinStack */ extends Stack<Integer> {
     private Stack<Integer> min = new Stack<Integer>();
 
     public void push(int item) {

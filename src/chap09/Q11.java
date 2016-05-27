@@ -40,7 +40,7 @@ public class Q11 {
         // Recursive case: subexpression evaluation
         int cnt = 0;
         if (result) {
-            for (int i = start + 1; i <= end; i += 2) {
+            for (int i = start + 1; i < end; i += 2) {
                 char operator = expression.charAt(i);
                 if (operator == '&') {
                     cnt += countDP(expression, true, start, i - 1, cache) * countDP(expression, true, i + 1, end, cache);
@@ -56,7 +56,7 @@ public class Q11 {
                 }
             }
         } else {
-            for (int i = start + 1; i <= end; i += 2) {
+            for (int i = start + 1; i < end; i += 2) {
                 char operator = expression.charAt(i);
                 if (operator == '&') {
                     cnt += countDP(expression, false, start, i - 1, cache) * countDP(expression, false, i + 1, end, cache);

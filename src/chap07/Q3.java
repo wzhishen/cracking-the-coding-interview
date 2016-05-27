@@ -18,7 +18,7 @@ public class Q3 {
     }
 
     /*
-     * XXX: Don't assume that the slope and y-intercept are integers.
+     * Key: Don't assume that the slope and y-intercept are integers.
      * Understand limitations of floating point representations. Never check
      * for equality with ==. Instead, check if the difference is less than an
      * epsilon value.

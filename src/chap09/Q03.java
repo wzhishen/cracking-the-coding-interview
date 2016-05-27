@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * What if the values are not distinct?
  */
 public class Q03 {
+    // O(log n) time
     public static int getMagicIndex(int[] a) {
         if (a == null) return -1;
         return getMagicIndex(a, 0, a.length - 1);
@@ -32,6 +33,7 @@ public class Q03 {
         }
     }
 
+    // worst case O(n) time, no better than a linear scan
     public static int getMagicIndexDup(int[] a) {
         if (a == null) return -1;
         return getMagicIndexDup(a, 0, a.length - 1);
@@ -55,6 +57,8 @@ public class Q03 {
      * What if multiple indexes are satisfied?
      * Find all indexes.
      */
+
+    // worst case O(n) time, no better than a linear scan
     public static ArrayList<Integer> getAllMagicIndexDup(int[] a) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         getAllMagicIndexDup(a, 0, a.length - 1, result);

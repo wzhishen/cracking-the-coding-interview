@@ -14,7 +14,7 @@ import java.util.Stack;
  * previous one exceeds capacity. SetOfStacks.push() and SetOfStacks.pop()
  * should behave identically to a single stack (that is, pop() should
  * return the same values as it would if there were just a single stack).
- * 
+ *
  * FOLLOW UP
  * Implement a function popAt(int index) which performs a pop operation
  * on a specific sub-stack.

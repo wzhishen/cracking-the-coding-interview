@@ -12,7 +12,7 @@ following algorithm:
    the last one is used as a buffer.
 2. Load data to fill the first N data parts from N chunks respectively, perform an N-way
    merge sort to the buffer.
-3. While any data part is not empty, perform the sort.
+3. While any data part is not empty, perform sort to the buffer.
 4. If any data part is empty, load new content from the corresponding chunk.
 5. If the buffer is full, write buffer to the disk as output file, clear buffer.
 6. Repeat step 4-5 until all N chunks and buffer are empty.

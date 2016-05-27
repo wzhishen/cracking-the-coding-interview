@@ -9,8 +9,11 @@ import static helpers.Printer.*;
  * characters, print "ERROR".
  */
 public class Q2 {
-    // To print the decimal part, we can multiply by 2 and check if
-    // 2*n is greater than or equal to 1.
+    /* Key:
+     * To print the decimal part, multiply it by 2,
+     * if 2*n is greater than or equal to 1: append bit 1
+     * else: append bit 0
+     */
     public static String printBinary(double n) {
         StringBuilder sb = new StringBuilder();
         sb.append("0.");

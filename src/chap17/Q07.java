@@ -25,7 +25,7 @@ public class Q07 {
             n /= 1000;
             ++i;
         }
-        return ret;
+        return ret.trim();
     }
 
     private static String convertHundred(int n) {

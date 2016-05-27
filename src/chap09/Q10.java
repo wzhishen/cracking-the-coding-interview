@@ -3,7 +3,6 @@ package chap09;
 import static helpers.Printer.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,6 +14,10 @@ import java.util.List;
  * the height of a stack is the sum of the heights of each box.
  */
 public class Q10 {
+    /*
+     * Also see http://www.geeksforgeeks.org/dynamic-programming-set-21-box-stacking-problem/
+     * for a generalized version of box stacking problem.
+     */
     public static ArrayList<Box> buildTallestStack(Box[] boxes) {
         if (boxes == null) return null;
         return buildTallestStack(boxes, null);
@@ -35,33 +38,6 @@ public class Q10 {
         }
         if (maxStack == null) maxStack = new ArrayList<Box>();
         if (bottom != null) maxStack.add(0, bottom);
-        return maxStack;
-    }
-
-    public static ArrayList<Box> buildTallestStackDP(Box[] boxes) {
-        if (boxes == null) return null;
-        HashMap<Box, ArrayList<Box>>c=new HashMap<Box, ArrayList<Box>>();
-        ArrayList<Box> tmp= buildTallestStackDP(boxes, null, c);
-        return tmp;
-    }
-
-    private static ArrayList<Box> buildTallestStackDP(Box[] boxes, Box bottom, HashMap<Box, ArrayList<Box>> cache) {
-        if (cache.containsKey(bottom)) return cache.get(bottom);
-        int maxHeight = 0;
-        ArrayList<Box> maxStack = null;
-        for(Box box : boxes) {
-            if (box.canPlaceAbove(bottom)) {
-                ArrayList<Box> boxStack = buildTallestStackDP(boxes, box, cache);
-                int height = getStackHeight(boxStack);
-                if (height > maxHeight) {
-                    maxHeight = height;
-                    maxStack = boxStack;
-                }
-            }
-        }
-        if (maxStack == null) maxStack = new ArrayList<Box>();
-        if (bottom != null) maxStack.add(0, bottom);
-        cache.put(bottom, (ArrayList<Box>) maxStack.clone());
         return maxStack;
     }
 
@@ -103,6 +79,5 @@ public class Q10 {
             new Box(12, 15, 9),
         };
         println(buildTallestStack(boxes));
-        println(buildTallestStackDP(boxes));
     }
 }

@@ -19,20 +19,19 @@ public class Q1 {
         if (isFull(stackNum))
             throw new IllegalArgumentException("Stack " + stackNum + " is full!");
         ++stackPointers[stackNum];
-        setTop(stackNum, item);
+        buffer[getBufferIndex(stackNum)] = item;
     }
 
     public int pop(int stackNum) {
-        if (isEmpty(stackNum))
-            throw new IllegalArgumentException("Stack " + stackNum + " is empty!");
+        int val = peek(stackNum);
         --stackPointers[stackNum];
-        return getTop(stackNum);
+        return val;
     }
 
     public int peek(int stackNum) {
         if (isEmpty(stackNum))
             throw new IllegalArgumentException("Stack " + stackNum + " is empty!");
-        return getTop(stackNum);
+        return buffer[getBufferIndex(stackNum)];
     }
 
     public boolean isFull(int stackNum) {
@@ -65,14 +64,6 @@ public class Q1 {
         }
     }
 
-    private int getTop(int stackNum) {
-        return buffer[getBufferIndex(stackNum)];
-    }
-
-    private void setTop(int stackNum, int item) {
-        buffer[getBufferIndex(stackNum)] = item;
-    }
-
     private int getBufferIndex(int stackNum) {
         return stackPointers[stackNum] + stackNum * STACK_SIZE;
     }
@@ -87,7 +78,11 @@ public class Q1 {
         stack.push(2, 10); stack.push(2, 20); stack.push(2, 30); stack.push(2, 40);
         stack.printStacks();
         println();
-        stack.pop(0); stack.pop(1); stack.pop(1); stack.pop(2);
+        println("Pop Stack 0: " + stack.pop(0));
+        println("Pop Stack 1: " + stack.pop(1));
+        println("Pop Stack 1: " + stack.pop(1));
+        println("Pop Stack 2: " + stack.pop(2));
+        println();
         stack.printStacks();
     }
 }

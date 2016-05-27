@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Q05 {
     /*
+     * Naive recursion:
      * Solve for f(n - 1), and then push a(n) into every spot
      * in each of these strings.
      * O(n!) time.
@@ -32,9 +33,33 @@ public class Q05 {
         return result;
     }
 
+    /*
+     * Better recursion: backtracking
+     */
+    public static ArrayList<String> getPermutations2(String s) {
+        if (s == null) return null;
+        ArrayList<String> result = new  ArrayList<String>();
+        permute(result, "", s.toCharArray());
+        return result;
+    }
+
+    private static void permute(ArrayList<String> result, String curr, char[] s) {
+        if (curr.length() == s.length) {
+            result.add(curr);
+        } else {
+            for (int i = 0; i < s.length; ++i) {
+                if (s[i] == '\0') continue;
+                char ch = s[i];
+                s[i] = '\0';
+                permute(result, curr + ch, s);
+                s[i] = ch;
+            }
+        }
+    }
+
     //TEST----------------------------------
     public static void main(String[] args) {
-        ArrayList<String> permutations = getPermutations("ab12");
-        println(permutations);
+        println(getPermutations("ab12"));
+        println(getPermutations2("ab12"));
     }
 }

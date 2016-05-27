@@ -31,6 +31,15 @@ public class Printer {
         println();
     }
 
+    public static void printArray(char[] a) {
+        if (a == null) {
+            print(null);
+        } else {
+            for(char n : a) print(n + " ");
+        }
+        println();
+    }
+
     public static void printArray(String[] a) {
         if (a == null) {
             print(null);
@@ -38,6 +47,15 @@ public class Printer {
             for(String n : a) print(n + " ");
         }
         println();
+    }
+
+    public static void printArray(int[][] a) {
+        for (int[] row : a) {
+            for (int col : row) {
+                print(col + " ");
+            }
+            println();
+        }
     }
 
     private static String lineSeparator() {

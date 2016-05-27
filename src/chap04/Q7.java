@@ -17,14 +17,13 @@ public class Q7 {
             root == n2 && contains(root, n1)) return root;
         boolean n1OnLeft = contains(root.left, n1);
         boolean n2OnLeft = contains(root.left, n2);
-        if (n1OnLeft != n2OnLeft) {
-            return root;
-        } else if (n1OnLeft && n2OnLeft) {
+        if (n1OnLeft && n2OnLeft) {
             return findFirstCommonAncestor(root.left, n1, n2);
         } else if (!n1OnLeft && !n2OnLeft) {
             return findFirstCommonAncestor(root.right, n1, n2);
+        } else {
+            return root;
         }
-        return null;
     }
 
     private static boolean contains(TreeNode root, TreeNode n) {

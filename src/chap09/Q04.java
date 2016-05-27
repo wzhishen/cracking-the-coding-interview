@@ -11,18 +11,18 @@ import java.util.List;
  */
 public class Q04 {
     /*
-     * Naive recursion
+     * Naive recursion:
      * Compute P(n-1), clone the results, and then add a(n) to each of these cloned sets.
      * O(2^n) time and space.
      */
-    public static ArrayList<ArrayList<Integer>> getSubsetsRecursive(List<Integer> set) {
+    public static ArrayList<ArrayList<Integer>> getSubsetsNaive(List<Integer> set) {
         if (set == null) return null;
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
         if (set.isEmpty()) {
             result.add(new ArrayList<Integer>());
             return result;
         }
-        ArrayList<ArrayList<Integer>> lastSubsets = getSubsetsRecursive(set.subList(1, set.size()));
+        ArrayList<ArrayList<Integer>> lastSubsets = getSubsetsNaive(set.subList(1, set.size()));
         result.addAll(lastSubsets);
         for (ArrayList<Integer> lastSubset : lastSubsets) {
             ArrayList<Integer> subset = new ArrayList<Integer>(lastSubset);
@@ -33,6 +33,25 @@ public class Q04 {
     }
 
     /*
+     * Better recursion: backtracking
+     */
+    public static List<List<Integer>> getSubsetsBacktrack(List<Integer> set) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        getSubsetsBacktrack(set, 0, result, new ArrayList<Integer>());
+        return result;
+    }
+
+    private static void getSubsetsBacktrack(List<Integer> input, int index, List<List<Integer>> result, List<Integer> subset) {
+        result.add(new ArrayList<Integer>(subset));
+        for (int i = index; i < input.size(); ++i) {
+            subset.add(input.get(i));
+            getSubsetsBacktrack(input, i + 1, result, subset);
+            subset.remove(subset.size() - 1);
+        }
+    }
+
+    /*
+     * Bitmap:
      * Iterate through all numbers from 1 to 2^n and translate the binary representation
      * of the numbers into a set.
      * O(2^n) time and space.
@@ -60,7 +79,8 @@ public class Q04 {
     //TEST----------------------------------
     public static void main(String[] args) {
         Integer[] a = {1,3,5,7};
-        println(getSubsetsRecursive(Arrays.asList(a)));
+        println(getSubsetsNaive(Arrays.asList(a)));
+        println(getSubsetsBacktrack(Arrays.asList(a)));
         println(getSubsetsIterative(Arrays.asList(a)));
     }
 }

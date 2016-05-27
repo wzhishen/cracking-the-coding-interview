@@ -1,11 +1,12 @@
 package chap04;
 
-import static helpers.Printer.*;
+import static helpers.Printer.print;
+import static helpers.Printer.println;
+import helpers.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import helpers.TreeNode;
+import java.util.Queue;
 
 /**
  * Given a binary tree, design an algorithm which creates a linked
@@ -29,6 +30,24 @@ public class Q4 {
         return result;
     }
 
+    public static ArrayList<LinkedList<TreeNode>> createLevelLinkedList2(TreeNode root) {
+        ArrayList<LinkedList<TreeNode>> result = new ArrayList<LinkedList<TreeNode>>();
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        if (root != null) q.add(root);
+        while(!q.isEmpty()) {
+            int size = q.size();
+            LinkedList<TreeNode> level = new LinkedList<TreeNode>();
+            for (int i = 0; i < size; ++i) {
+                TreeNode n = q.remove();
+                level.add(n);
+                if (n.left != null) q.add(n.left);
+                if (n.right != null) q.add(n.right);
+            }
+            result.add(level);
+        }
+        return result;
+    }
+
     //TEST----------------------------------
     public static void main(String[] args) {
         /*
@@ -47,7 +66,16 @@ public class Q4 {
         TreeNode.printTree(r);
         println();
 
+        println("createLevelLinkedList:");
         ArrayList<LinkedList<TreeNode>> levels = createLevelLinkedList(r);
+        for (LinkedList<TreeNode> level : levels) {
+            for (TreeNode node : level) {
+                print(node + " ");
+            }
+            println();
+        }
+        println("\ncreateLevelLinkedList2:");
+        levels = createLevelLinkedList2(r);
         for (LinkedList<TreeNode> level : levels) {
             for (TreeNode node : level) {
                 print(node + " ");

@@ -13,6 +13,7 @@ public class Q5 {
         return search(strings, s, 0, strings.length - 1);
     }
 
+    // worst case is O(n) time, no better than a linear scan
     private static int search(String[] strings, String s, int low, int high) {
         if (low > high) return -1;
         int mid = low + (high - low) / 2;

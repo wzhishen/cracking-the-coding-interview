@@ -5,7 +5,6 @@ import static helpers.Printer.*;
 /**
  * Write an algorithm such that if an element in an MxN matrix is 0,
  * its entire row and column are set to 0.
- *
  */
 public class Q7 {
     // use boolean array
@@ -41,8 +40,8 @@ public class Q7 {
         for (int i = 0; i < matrix.length; ++i) {
             for (int j = 0; j < matrix[0].length; ++j) {
                 if (matrix[i][j] == 0) {
-                    bitVecRows |= 1l << i;
-                    bitVecCols |= 1l << j; 
+                    bitVecRows |= 1 << i;
+                    bitVecCols |= 1 << j; 
                 }
             }
         }
@@ -50,7 +49,7 @@ public class Q7 {
         // set zeros
         for (int i = 0; i < matrix.length; ++i) {
             for (int j = 0; j < matrix[0].length; ++j) {
-                if ((bitVecRows & (1l << i)) != 0 || (bitVecCols & (1l << j)) != 0) {
+                if ((bitVecRows & (1 << i)) != 0 || (bitVecCols & (1 << j)) != 0) {
                     matrix[i][j] = 0;
                 }
             }

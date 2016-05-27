@@ -51,8 +51,8 @@ public class Q4 {
         if (b == 0) throw new IllegalArgumentException("Divisor is zero!");
         int absA = abs(a), absB = abs(b);
         boolean isNegative = a > 0 != b > 0;
-        int sum = absB, result = 0;
-        while (sum < absA) {
+        int sum = 0, result = 0;
+        while (add(sum, absB) <= absA) {
             sum = add(sum, absB);
             result = add(result, 1);
         }
@@ -66,6 +66,7 @@ public class Q4 {
 
     //TEST----------------------------------
     public static void main(String[] args) {
+        test(9, 3);
         test(9, 4);
         test(0, -1);
         test(-100, 999);

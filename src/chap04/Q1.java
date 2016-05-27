@@ -11,6 +11,7 @@ import helpers.TreeNode;
  * node never differ by more than one.
  */
 public class Q1 {
+    // top-down: O(n^2) time
     public static boolean isBalanced(TreeNode n) {
         if (n == null) return true;
         return Math.abs(getHeight(n.left) - getHeight(n.right)) <= 1 &&
@@ -18,14 +19,8 @@ public class Q1 {
                isBalanced(n.right);
     }
 
+    // bottom-up: O(n) time
     public static boolean isBalanced2(TreeNode n) {
-        if (n == null) return true;
-        if (Math.abs(getHeight(n.left) - getHeight(n.right)) > 1) return false;
-        if (!isBalanced(n.left) || !isBalanced(n.right)) return false;
-        return true;
-    }
-
-    public static boolean isBalanced3(TreeNode n) {
         return getHeightBalanced(n) != -1;
     }
 
@@ -57,8 +52,7 @@ public class Q1 {
         r.left = n1; r.right = new TreeNode(5);
         TreeNode.printTree(r);
         print(isBalanced(r) + " ");
-        print(isBalanced2(r) + " ");
-        println(isBalanced3(r));
+        println(isBalanced2(r));
 
         /*
          *     4
@@ -72,7 +66,6 @@ public class Q1 {
         n2.right = new TreeNode(6);
         TreeNode.printTree(r);
         print(isBalanced(r) + " ");
-        print(isBalanced2(r) + " ");
-        print(isBalanced3(r));
+        print(isBalanced2(r));
     }
 }

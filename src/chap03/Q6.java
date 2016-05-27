@@ -13,7 +13,7 @@ import java.util.Stack;
  * the following operations: push, pop, peek, and isEmpty.
  */
 public class Q6 {
-    //O(N2) time and O(N) space.
+    // O(n^2) time and O(n) space
     public static Stack<Integer> sortStack(Stack<Integer> stack) {
         Stack<Integer> result = new Stack<Integer>();
         while (!stack.isEmpty() ) {

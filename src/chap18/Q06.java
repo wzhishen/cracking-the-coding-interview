@@ -14,19 +14,23 @@ import java.util.PriorityQueue;
  * SOLUTION
  * 1. Sort. O(n log n) time, O(log n) space.
  * 2. Heap. O(n log m) time, O(m) space.
- * 3. Selection Rank. O(n) time, O(log n) space. Need to modify input array.
+ * 3. Quick Select. O(n) time, O(log n) space. Need to modify input array.
  */
 public class Q06 {
     public static ArrayList<Integer> findNSmallestElements(ArrayList<Integer> nums, int n) {
         if (nums == null || n < 0) return null;
         PriorityQueue<Integer> maxheap = new PriorityQueue<Integer>(n, Collections.reverseOrder());
-        for (int i = 0; i < n; ++i) {
-            maxheap.offer(nums.get(i));
+        for (int num : nums) {
+            if (maxheap.size() < n) {
+                maxheap.offer(num);
+            } else {
+                if (num < maxheap.peek()) {
+                    maxheap.poll();
+                    maxheap.offer(num);
+                }
+            }
         }
-        for (int i = n; i < nums.size(); ++i) {
-            maxheap.offer(nums.get(i));
-            maxheap.poll();
-        }
+
         ArrayList<Integer> result = new ArrayList<Integer>();
         while (!maxheap.isEmpty() ) {
             result.add(maxheap.poll());

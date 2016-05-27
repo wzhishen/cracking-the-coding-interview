@@ -173,5 +173,6 @@ public class Q13 {
         };
         Rectangle rectangle = buildLargestRectangle(words);
         if (rectangle != null) rectangle.print();
+        else println("No solution!");
     }
 }

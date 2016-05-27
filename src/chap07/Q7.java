@@ -12,6 +12,20 @@ import java.util.LinkedList;
 public class Q7 {
     public static int findKthNum(int k) {
         if (k <= 0) return -1;
+        int[] dp = new int[k];
+        dp[0] = 1;
+        int i3 = 0, i5 = 0, i7 = 0;
+        for (int i = 1; i < k; ++i) {
+            dp[i] = Math.min(dp[i3] * 3, Math.min(dp[i5] * 5, dp[i7] * 7));
+            if (dp[i] == dp[i3] * 3) ++i3;
+            if (dp[i] == dp[i5] * 5) ++i5;
+            if (dp[i] == dp[i7] * 7) ++i7;
+        }
+        return dp[k - 1];
+    }
+
+    public static int findKthNum2(int k) {
+        if (k <= 0) return -1;
         int num = 1;
         ArrayList<Integer> q = new ArrayList<Integer>();
         q.add(num);
@@ -35,7 +49,7 @@ public class Q7 {
         return min;
     }
 
-    public static int findKthNum2(int k) {
+    public static int findKthNum3(int k) {
         if (k <= 0) return -1;
         int num = 1;
         LinkedList<Integer> q3 = new LinkedList<Integer>();
@@ -67,7 +81,7 @@ public class Q7 {
     //TEST----------------------------------
     public static void main(String[] args) {
         for (int i = 1; i <= 20; ++i) {
-            println(findKthNum(i) + " " + findKthNum2(i));
+            println(findKthNum(i) + " " + findKthNum2(i) + " " + findKthNum3(i));
         }
     }
 }

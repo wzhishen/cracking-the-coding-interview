@@ -62,24 +62,10 @@ public class Q11 {
         int size = matrix.length;
         Cell[][] cells = new Cell[size][size];
 
-        int n = matrix[size - 1][size - 1];
-        cells[size - 1][size - 1] = new Cell(n, n);
-
-        for (int i = size - 2; i >= 0; --i) {
-            n = matrix[size - 1][i];
-            int right = n + cells[size - 1][i + 1].availableRight;
-            cells[size - 1][i] = new Cell(n, right);
-
-            n = matrix[i][size - 1];
-            int below = n + cells[i + 1][size - 1].availableBelow;
-            cells[i][size - 1] = new Cell(below, n);
-        }
-
-        for (int i = size - 2; i >= 0; --i) {
-            for (int j = size - 2; j >= 0; --j) {
-                n = matrix[i][j];
-                int right = n + cells[i][j + 1].availableRight;
-                int below = n + cells[i + 1][j].availableBelow;
+        for (int i = size - 1; i >= 0; --i) {
+            for (int j = size - 1; j >= 0; --j) {
+                int right = matrix[i][j] + (j == size - 1 ? 0 : cells[i][j + 1].availableRight);
+                int below = matrix[i][j] + (i == size - 1 ? 0 : cells[i + 1][j].availableBelow);
                 cells[i][j] = new Cell(below, right);
             }
         }

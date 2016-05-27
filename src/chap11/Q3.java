@@ -14,6 +14,7 @@ public class Q3 {
         return search(a, x, 0, a.length - 1);
     }
 
+    // worst case is O(n) time, no better than a linear scan
     private static int search(int[] a, int x, int low, int high) {
         if (low > high) return -1;
         int mid = low + (high - low) / 2;

@@ -9,28 +9,24 @@ import static helpers.Printer.*;
  * string, your method should return the original string.
  */
 public class Q5 {
-    static String compress(String s) {
-        if (s == null || s.isEmpty()) return s;
+  public static String compress(String sample) {
+		String result="";
+		int[] array = new int[256];
+		for(int i = 0; i < sample.length(); i++){
+			int val = sample.charAt(i);
+			array[val]++;
+		}
+		
+		for(int i = 0; i < sample.length(); i++){
+			int val = sample.charAt(i);
+			if(!result.contains(""+sample.charAt(i))){
+				result = result+sample.charAt(i)+array[val];
+			}
 
-        char prev = s.charAt(0);
-        int cnt = 1;
-        StringBuffer sb = new StringBuffer();
-        sb.append(prev);
-        for (int i = 1; i < s.length(); ++i) {
-            char curr = s.charAt(i);
-            if (curr == prev) {
-                ++cnt;
-            } else {
-                prev = curr;
-                sb.append(cnt)
-                  .append(curr);
-                cnt = 1;
-            }
-        }
-        sb.append(cnt);
+		}
 
-        return sb.toString().length() >= s.length() ? s : sb.toString();
-    }
+		return result;
+	}
 
     //TEST----------------------------------
     public static void main(String[] args) {
